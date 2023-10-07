@@ -14,38 +14,49 @@
         <a href="#landings">Recent Landings</a>
         <a href="#moonquakes">Moonquakes</a>
     </div>
-
-    <header id="home">
-        <h1>Moon Exploration</h1>
-    </header>
-
-
-    <div class="toggle-container">
-        <p>Landing Site</p>
-        <label class="switch">
-          <input id="toggle_landingSites" type="checkbox">
-          <span class="slider"></span>
-        </label>
+    <div class="scene-nav-menu">
+        <ul class="accordion menu-list" role="tablist">
+            <div class="menu-title">Menu</div>
+            <li class="accordion-item">
+                <div class="toggle-container">
+                    <p>Landing Site</p>
+                    <label class="switch">
+                    <input id="toggle_landingSites" type="checkbox">
+                    <span class="slider"></span>
+                    </label>
+                </div>
+            </li>
+            <li class="accordion-item">
+                <div class="toggle-container">
+                    <p>Moonquakes</p>
+                    <label class="switch">
+                    <input id="toggle_moonquakes" type="checkbox" style="display: inline-block;">
+                    <span class="slider"></span>
+                    </label>
+                </div>
+            </li>
+            <li class="accordion-item">
+                <div class="toggle-container">
+                    <p>Topographic </p>
+                    <label class="switch">
+                    <input id="toggle_topographic" type="checkbox">
+                    <span class="slider"></span>
+                    </label>
+                </div>
+            </li>
+            <li class="accordion-item">
+                <a id="accordion-label" class="accordion-title menu-name" role="tab" aria-expanded="false" aria-selected="false">Moon</a>
+                <div class="accordion-content" data-tab-content="" role="tabpanel" aria-labelledby="33crh5-accordion-label" aria-hidden="false" id="33crh5-accordion" style="display: block;">
+                    <table class="moon_table">
+                        <tbody><tr><td>Diameter</td><td>3476.2 km</td></tr><tr><td>Semi-major Axis</td><td>384,400 km</td></tr><tr><td>Orbital Period</td><td>27.3 days</td></tr><tr><td>Mass</td><td>0.07342 kg</td></tr></tbody>
+                    </table>
+                </div>
+            </li>
+        </ul>
     </div>
-
-    <div class="toggle-container">
-        <p>Moonquakes</p>
-        <label class="switch">
-          <input id="toggle_moonquakes" type="checkbox">
-          <span class="slider"></span>
-        </label>
-    </div>
-
-    <div class="toggle-container">
-        <p>Topographic view</p>
-        <label class="switch">
-          <input id="toggle_topographic" type="checkbox">
-          <span class="slider"></span>
-        </label>
-    </div>
-    
     <div id="moonContainer">
     </div>
+<!--
     <main>
         <section id="about">
             <h2>About Moon Exploration</h2>
@@ -55,14 +66,12 @@
         <section id="landings">
             <h2>Recent Moon Landings</h2>
             <ul id="landingsList">
-                <!-- Landings data will be inserted here -->
             </ul>
         </section>
 
         <section id="moonquakes">
             <h2>Moonquake Data</h2>
             <ul id="moonquakeList">
-                <!-- Moonquake data will be inserted here -->
             </ul>
         </section>
     </main>
@@ -70,7 +79,7 @@
     <footer>
         <p>&copy; 2023 Moon Exploration</p>
     </footer>
-
+    -->
     <script src="//unpkg.com/d3-array"></script>
     <script src="//unpkg.com/d3-scale"></script>
     <script src="//unpkg.com/globe.gl"></script>
