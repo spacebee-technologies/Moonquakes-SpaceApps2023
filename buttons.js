@@ -1,7 +1,7 @@
 const toggle_landingSites = document.getElementById('toggle_landingSites');
     let landingSitesVisible = false;
     const toggle_moonquakes = document.getElementById('toggle_moonquakes');
-    let moonquakesVisible = true;
+    let moonquakesVisible = false;
     const toggle_topographic = document.getElementById('toggle_topographic');
     let topographicVisible=false;
 
@@ -12,6 +12,7 @@ const colorScale = d3.scaleOrdinal(['orangered', 'mediumblue', 'darkgreen', 'yel
 const labelsTopOrientation = new Set(['Apollo 12', 'Luna 2', 'Luna 20', 'Luna 21', 'Luna 24', 'LCROSS Probe']); // avoid label collisions
   
 function toggleLandingSites() {
+    landingSitesVisible = !landingSitesVisible;
     if (landingSitesVisible) {
         toggle_landingSites.classList.add('on');
         moon.labelText('label')
@@ -30,21 +31,26 @@ function toggleLandingSites() {
         toggle_landingSites.classList.remove('on');
         moon.labelsData([]);
     }
-    landingSitesVisible = !landingSitesVisible;
+
 }
 
 
 function toggleTopographic() {
     topographicVisible = !topographicVisible;
     if (topographicVisible) {
+        //!Check Is not a texture
         moon.globeImageUrl('/resources/lunar_topographic_map.jpg');
     } else {
-        moon.globeImageUrl('/resources/lunar_surface_4k.png');
+        //!Check Add transition
+        loadTexture();
+        
     }
+       
 
 }
 
 function toggleMoonquakes() {
+    moonquakesVisible = !moonquakesVisible;
     if (moonquakesVisible) {
         toggle_moonquakes.classList.add('on');
 
@@ -92,7 +98,6 @@ function toggleMoonquakes() {
         moon.ringMaxRadius(0);
         
     }
-    moonquakesVisible = !moonquakesVisible;
 }
 
 //Listen for toggles buttons 
