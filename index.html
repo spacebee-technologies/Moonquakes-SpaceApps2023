@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moon Exploration</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <div class="navbar">
@@ -73,13 +74,11 @@
     <script src="//unpkg.com/d3-array"></script>
     <script src="//unpkg.com/d3-scale"></script>
     <script src="//unpkg.com/globe.gl"></script>
+    <script src="//unpkg.com/three"></script>
+    <script src="buttons.js"></script>
     <script>
-    const toggle_landingSites = document.getElementById('toggle_landingSites');
-    let landingSitesVisible = false;
-    const toggle_moonquakes = document.getElementById('toggle_moonquakes');
-    let moonquakesVisible = true;
-    const toggle_topographic = document.getElementById('toggle_topographic');
-    let topographicVisible=false;
+
+    
 
     const moonContainer = document.getElementById('moonContainer');
     
@@ -91,14 +90,15 @@
         .width(elem.clientWidth)
         .height(elem.clientHeight);
     }
+
+
     let moonquakesData = [];
-    let moonquakesLabels = [];
+
     function loadMoonquakesData() {
     fetch('./moonquakes.json')
         .then((response) => response.json())
         .then((data) => {
             moonquakesData = data;
-            moonquakesLabels = data;
             console.log("Moonquakes sites loaded");
         })
         .catch((error) => {
@@ -106,8 +106,6 @@
         });
     }
     loadMoonquakesData();
-
-
     let landingSitesData = [];
     function loadLandingSitesData() {
     fetch('./moon_landings.json')
@@ -123,116 +121,38 @@
     loadLandingSitesData();
 
     
-    function toggleLandingSites() {
-        
-        if (landingSitesVisible) {
-            toggle_landingSites.classList.add('on');
-            moon.labelText('label')
-            .labelSize(1.7)
-            .labelDotRadius(0.4)
-            .labelDotOrientation(d => labelsTopOrientation.has(d.label) ? 'top' : 'bottom')
-            .labelColor(d => colorScale(d.agency))
-            .labelLabel(d => `
-                <div><b>${d.label}</b></div>
-                <div>${d.agency} - ${d.program} Program</div>
-                <div>Landing on <i>${new Date(d.date).toLocaleDateString()}</i></div>
-            `)
-            .onLabelClick(d => window.open(d.url, '_blank'));
-            console.log(landingSitesData);
-            moon.labelsData(landingSitesData);
-        } else {
-            toggle_landingSites.classList.remove('on');
-            moon.labelsData([]);
-        }
-        landingSitesVisible = !landingSitesVisible;
-    }
+   
 
 
-    function toggleTopographic() {
-        topographicVisible = !topographicVisible;
-        if (topographicVisible) {
-            moon.globeImageUrl('/resources/lunar_topographic_map.jpg');
-        } else {
-            moon.globeImageUrl('/resources/lunar_surface_4k.png');
-        }
-
-    }
-
-    function toggleMoonquakes() {
-        console.log(moonquakesVisible);
-        if (moonquakesVisible) {
-            toggle_moonquakes.classList.add('on');
-            console.log(moonquakesData);
-
-
-            moon.htmlElementsData(moonquakesLabels);
-            moon.htmlElement(d => {
-            const el = document.createElement('div');
-            el.innerHTML = `
-                <div class="moonquake-parent">
-                <div>
-                    <p class="exclamation-mark" style="font-size: 8pt;">(!)</p></div>
-                    <div class="moonquake-element hover-effect">
-                        <p style="font-size: 10pt; text-align: center;">
-                            <b>${d.name}</b><br>
-                            ${d.mission}
-                            <br>
-                        </p>
-                    </div>
-                </div>
-            `;
-            el.style['pointer-events'] = 'auto';
-            el.style.cursor = 'pointer';
-            // Add the onmouseover event handler
-            el.onmouseover = () => {
-                el.querySelector('.moonquake-element').style.display = 'block';
-            };
-
-            // Add the onmouseout event handler
-            el.onmouseout = () => {
-                el.querySelector('.moonquake-element').style.display = 'none';
-            };
-            el.onclick = () => console.info(d);
-            return el;
-            });
-            
-           
-            moon.ringMaxRadius(2);
-            moon.ringsData(moonquakesData);
-        } else {
-            toggle_moonquakes.classList.remove('on');
-            moon.htmlElementsData([]);
-            const moonquakeElements = document.querySelectorAll('.moonquake-element, .exclamation-mark');
-            moonquakeElements.forEach(el => el.remove());
-            moon.ringMaxRadius(0);
-            
-        }
-        moonquakesVisible = !moonquakesVisible;
-    }
-
-
-    
-    const colorScale = d3.scaleOrdinal(['orangered', 'mediumblue', 'darkgreen', 'yellow']);
-  
-    const labelsTopOrientation = new Set(['Apollo 12', 'Luna 2', 'Luna 20', 'Luna 21', 'Luna 24', 'LCROSS Probe']); // avoid label collisions
-  
     const elem = document.getElementById('moonContainer');
     const moon = Globe()
-      .globeImageUrl('/resources/lunar_surface_4k.png')
+      //.globeImageUrl('/resources/lunar_surface_4k.png')
       .bumpImageUrl('/resources/lunar_height_map_16.png')
       .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
       .showGraticules(true)
       .showAtmosphere(false) // moon has no atmosphere
         (moonContainer);
-   
+    
+    const textureLoader = new THREE.TextureLoader();
+    const texture = textureLoader.load('/resources/lunar_surface_4k.png'); // Adjust the path as needed
+    // Listen for the resize event and update the globe size
+    moon.globeMaterial(new THREE.MeshStandardMaterial({ map: texture }));      
+
+
+    setTimeout(() => { // wait for scene to be populated (asynchronously)
+        const directionalLight = moon.scene().children.find(obj3d => obj3d.type === 'DirectionalLight');
+        directionalLight && directionalLight.position.set(1, 0, 0); // change light position to see the specularMap's effect
+      
+        const ambientLight = moon.scene().children.find(obj3d => obj3d.type === 'AmbientLight');
+        if (ambientLight) {
+         moon.scene().remove(ambientLight);}
+    },1000);
 
     // Listen for the resize event and update the globe size
+    
     window.addEventListener('resize', updateGlobeSize);
 
-    //Listen for toggles buttons 
-    toggle_landingSites.addEventListener('click', toggleLandingSites);
-    toggle_moonquakes.addEventListener('click', toggleMoonquakes);
-    toggle_topographic.addEventListener('click', toggleTopographic);
+  
 
 
     toggleLandingSites();
