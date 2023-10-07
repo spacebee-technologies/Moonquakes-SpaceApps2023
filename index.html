@@ -76,88 +76,120 @@
     <script src="//unpkg.com/globe.gl"></script>
     <script src="//unpkg.com/three"></script>
     <script src="buttons.js"></script>
-    <script>
 
-    
-
-    const moonContainer = document.getElementById('moonContainer');
-    
-
-    function updateGlobeSize() {
-    // Function to update the globe size and projection on resize
-    const elem = document.getElementById('moonContainer');
-    moon
-        .width(elem.clientWidth)
-        .height(elem.clientHeight);
-    }
-
-
-    let moonquakesData = [];
-
-    function loadMoonquakesData() {
-    fetch('./moonquakes.json')
-        .then((response) => response.json())
-        .then((data) => {
-            moonquakesData = data;
-            console.log("Moonquakes sites loaded");
-        })
-        .catch((error) => {
-            console.error('Error loading moonquakes  data:', error);
-        });
-    }
-    loadMoonquakesData();
-    let landingSitesData = [];
-    function loadLandingSitesData() {
-    fetch('./moon_landings.json')
-        .then((response) => response.json())
-        .then((data) => {
-            landingSitesData = data;
-            console.log("Landing sites loaded");
-        })
-        .catch((error) => {
-            console.error('Error loading landing site data:', error);
-        });
-    }
-    loadLandingSitesData();
-
-    
+<script>
    
 
+    function updateGlobeSize() {
+        // Function to update the globe size and projection on resize
+        const elem = document.getElementById('moonContainer');
+        moon
+            .width(elem.clientWidth)
+            .height(elem.clientHeight);
+    }
 
-    const elem = document.getElementById('moonContainer');
+
+    function loadMoonquakesData() {
+        fetch('./moonquakes.json')
+            .then((response) => response.json())
+            .then((data) => {
+                moonquakesData = data;
+                console.log("Moonquakes sites loaded");
+            })
+            .catch((error) => {
+                console.error('Error loading moonquakes  data:', error);
+            });
+    }
+
+    function loadLandingSitesData() {
+        fetch('./moon_landings.json')
+            .then((response) => response.json())
+            .then((data) => {
+                landingSitesData = data;
+                console.log("Landing sites loaded");
+            })
+            .catch((error) => {
+                console.error('Error loading landing site data:', error);
+            });
+    }
+
+        
+    function dayCycle() {
+        setTimeout(() => {
+            // Wait for the scene to be populated (asynchronously)
+            const directionalLight = moon.scene().children.find(obj3d => obj3d.type === 'DirectionalLight');
+            directionalLight && directionalLight.position.set(1, 0, 0); // Change light position to see the specularMap's effect
+
+            const ambientLight = moon.scene().children.find(obj3d => obj3d.type === 'AmbientLight');
+            if (ambientLight) {
+            moon.scene().remove(ambientLight);
+            }
+        }, 500);
+
+        // Create an orbit path
+        const orbitRadius = 5; // Adjust the radius of the orbit path as needed
+        const orbitSegments = 64; // Adjust the number of segments for a smoother appearance
+        const orbitGeometry = new THREE.CircleGeometry(orbitRadius, orbitSegments);
+        const orbitMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+        const orbit = new THREE.Line(orbitGeometry, orbitMaterial);
+        orbit.rotation.x = Math.PI / 2; // Rotate the orbit path to be horizontal
+        moon.scene().add(orbit);
+
+        // Define a function to make the directional light orbit
+        function orbitDirectionalLight() {
+            const directionalLight = moon.scene().children.find(obj3d => obj3d.type === 'DirectionalLight');
+            if (directionalLight) {
+            // Adjust the orbit speed as needed
+            const orbitSpeed = 0.00005;
+
+            // Update the position of the directional light to follow the orbit path
+            const currentTime = Date.now();
+            const angle = (currentTime * orbitSpeed) % (Math.PI * 2); // Calculate the angle based on time
+            const x = orbitRadius * Math.cos(angle);
+            const z = orbitRadius * Math.sin(angle);
+            directionalLight.position.set(x, 1, z);
+            }
+
+            // Request the next animation frame
+            requestAnimationFrame(orbitDirectionalLight);
+        }
+
+        // Call the orbitDirectionalLight function to start the orbit animation
+        orbitDirectionalLight();
+    }
+
+    function loadTexture(){
+        const textureLoader = new THREE.TextureLoader();
+        const texture = textureLoader.load('/resources/lunar_surface_4k.png'); // Adjust the path as needed
+        // Listen for the resize event and update the globe size
+        moon.globeMaterial(new THREE.MeshStandardMaterial({ map: texture }));      
+    }
+
+    const moonContainer = document.getElementById('moonContainer');
     const moon = Globe()
-      //.globeImageUrl('/resources/lunar_surface_4k.png')
-      .bumpImageUrl('/resources/lunar_height_map_16.png')
-      .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
-      .showGraticules(true)
-      .showAtmosphere(false) // moon has no atmosphere
+        //.globeImageUrl('/resources/lunar_surface_4k.png')
+        .bumpImageUrl('/resources/lunar_height_map_16.png')
+        .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+        .showGraticules(false)
+        .showAtmosphere(false) // moon has no atmosphere
         (moonContainer);
-    
-    const textureLoader = new THREE.TextureLoader();
-    const texture = textureLoader.load('/resources/lunar_surface_4k.png'); // Adjust the path as needed
+
+
+
+    //Load data to variables
+    let landingSitesData = [];
+    loadLandingSitesData();
+    let moonquakesData = [];
+    loadMoonquakesData();
+    // Call the setupScene function to initialize your scene
+    dayCycle();
+    //Load Texture
+    loadTexture();
     // Listen for the resize event and update the globe size
-    moon.globeMaterial(new THREE.MeshStandardMaterial({ map: texture }));      
 
-
-    setTimeout(() => { // wait for scene to be populated (asynchronously)
-        const directionalLight = moon.scene().children.find(obj3d => obj3d.type === 'DirectionalLight');
-        directionalLight && directionalLight.position.set(1, 0, 0); // change light position to see the specularMap's effect
-      
-        const ambientLight = moon.scene().children.find(obj3d => obj3d.type === 'AmbientLight');
-        if (ambientLight) {
-         moon.scene().remove(ambientLight);}
-    },1000);
-
-    // Listen for the resize event and update the globe size
-    
     window.addEventListener('resize', updateGlobeSize);
-
-  
-
-
-    toggleLandingSites();
     // Call the updateGlobeSize function initially to set the initial size
     updateGlobeSize();
-  </script>
+</script>
 </body>
 </html>
