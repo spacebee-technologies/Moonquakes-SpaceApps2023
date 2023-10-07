@@ -26,7 +26,6 @@ function toggleLandingSites() {
             <div>Landing on <i>${new Date(d.date).toLocaleDateString()}</i></div>
         `)
         .onLabelClick(d => window.open(d.url, '_blank'));
-        moon.labelsData(landingSitesData);
     } else {
         toggle_landingSites.classList.remove('on');
         moon.labelsData([]);
@@ -39,11 +38,12 @@ function toggleTopographic() {
     topographicVisible = !topographicVisible;
     if (topographicVisible) {
         //!Check Is not a texture
-        moon.globeImageUrl('/resources/lunar_topographic_map.jpg');
+        moon.globeImageUrl('/resources/lunar_max_temperature.png');
+        ambientLightOn();
     } else {
+        ambientLightOFF();
         //!Check Add transition
-        loadTexture();
-        
+        loadTexture();     
     }
        
 

@@ -56,6 +56,8 @@
     </div>
     <div id="moonContainer">
     </div>
+
+      
 <!--
     <main>
         <section id="about">
@@ -87,7 +89,6 @@
     <script src="buttons.js"></script>
 
 <script>
-   
 
     function updateGlobeSize() {
         // Function to update the globe size and projection on resize
@@ -122,17 +123,31 @@
             });
     }
 
-        
-    function dayCycle() {
-        setTimeout(() => {
-            // Wait for the scene to be populated (asynchronously)
-            const directionalLight = moon.scene().children.find(obj3d => obj3d.type === 'DirectionalLight');
-            directionalLight && directionalLight.position.set(1, 0, 0); // Change light position to see the specularMap's effect
-
+    function ambientLightOn() {
+        const directionalLight = moon.scene().children.find(obj3d => obj3d.type === 'DirectionalLight');
+            if (directionalLight) {
+                directionalLight.intensity=0;
+            }
             const ambientLight = moon.scene().children.find(obj3d => obj3d.type === 'AmbientLight');
             if (ambientLight) {
-            moon.scene().remove(ambientLight);
+                ambientLight.intensity=3.14;
             }
+  }
+  
+  function ambientLightOFF() {
+        const ambientLight = moon.scene().children.find(obj3d => obj3d.type === 'AmbientLight');
+            if (ambientLight) {
+                ambientLight.intensity=0;
+            }
+            const directionalLight = moon.scene().children.find(obj3d => obj3d.type === 'DirectionalLight');
+            if (directionalLight) {
+                directionalLight.intensity=2;
+            }
+  }
+    function dayCycle(orbitSpeed) {
+        setTimeout(() => {
+            // Wait for the scene to be populated (asynchronously)
+            ambientLightOFF();
         }, 500);
 
         // Create an orbit path
@@ -149,8 +164,7 @@
             const directionalLight = moon.scene().children.find(obj3d => obj3d.type === 'DirectionalLight');
             if (directionalLight) {
             // Adjust the orbit speed as needed
-            const orbitSpeed = 0.00005;
-
+           
             // Update the position of the directional light to follow the orbit path
             const currentTime = Date.now();
             const angle = (currentTime * orbitSpeed) % (Math.PI * 2); // Calculate the angle based on time
@@ -158,6 +172,7 @@
             const z = orbitRadius * Math.sin(angle);
             directionalLight.position.set(x, 1, z);
             }
+
 
             // Request the next animation frame
             requestAnimationFrame(orbitDirectionalLight);
@@ -182,7 +197,7 @@
         .showGraticules(false)
         .showAtmosphere(false) // moon has no atmosphere
         (moonContainer);
-
+        console.log(moon.scene());
 
 
     //Load data to variables
@@ -191,14 +206,18 @@
     let moonquakesData = [];
     loadMoonquakesData();
     // Call the setupScene function to initialize your scene
-    dayCycle();
+    const orbitSpeed = 0.0005;
+    dayCycle(orbitSpeed);
     //Load Texture
     loadTexture();
     // Listen for the resize event and update the globe size
 
+
+
     window.addEventListener('resize', updateGlobeSize);
     // Call the updateGlobeSize function initially to set the initial size
     updateGlobeSize();
+    
 </script>
 </body>
 </html>
