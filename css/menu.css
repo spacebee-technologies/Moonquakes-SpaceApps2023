@@ -1,0 +1,162 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 30;
+    height: 100vh;
+    width: 250px;
+    background-color: rgba(25, 25, 25, 0.5);
+    color: #fff;
+    padding-top: 20px;
+  }
+  
+  .menu-header {
+    font-family: 'Rajdhani-Bold', sans-serif;
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(45, 45, 45, 0.8);
+    padding: 0.5rem 1rem;
+  }
+  
+  .menu-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .menu-list a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    transition: background-color 0.3s;
+  }
+  
+  .menu-list a:hover {
+    background-color: #333;
+  }
+  
+  .submenu {
+    display: none;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .submenu a {
+    padding: 8px 20px;
+    display: block;
+  }
+  
+  .content {
+    margin-left: 250px;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+
+.planet-name {
+    font-family: 'Rajdhani-Semibold', sans-serif;
+    font-size: 0.9rem;
+}
+  
+.scene-nav-menu {
+    left: 0;
+    top: 0;
+    width: 200px;
+    /* text-align: center; */
+    /* color: slategrey;*/
+    opacity: 0.7;
+    font-size: 10px;
+    position: absolute;
+    font-family: sans-serif;
+    /*background: rgba(0, 0, 0, 0.7);*/
+    z-index: 30;
+    border: 1px solid rgba(45, 45, 45, 0.85);
+    margin: 0;
+  }
+
+.scene-nav-infoo {
+  right: 0;
+  top: 0;
+  width: 400px;
+  height: auto;
+  /* text-align: center; */
+  /* color: slategrey;*/
+  opacity: 0.7;
+  font-size: 10px;
+  position: absolute;
+  font-family: sans-serif;
+  background: rgb(21 21 21 / 56%);
+  z-index: 30;
+  border: 1px solid rgba(45, 45, 45, 0.85);
+  margin: 0;
+  }
+  
+  .menu-title {
+    font-family: 'Rajdhani-Regular', sans-serif;
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(45, 45, 45, 0.8);
+    padding: 0.5rem 1rem;
+    color: #f9f9f9;
+    letter-spacing: 0.02rem;
+    background: rgb(21 21 21);
+  }
+  
+  .menu li {
+    font-size: 0.925rem;
+    line-height: 2rem;
+    font-size: inherit;
+  }
+  
+  .accordion-title {
+    display: block;
+    padding: 0.5rem 1rem;
+    line-height: 1;
+    font-size: 0.75rem;
+    color: white;
+    position: relative;
+    border-bottom: 1px solid rgba(45, 45, 45, 0.8);
+  }
+  
+  .moon_table {
+    font-family: 'Rajdhani-Semibold', sans-serif;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    margin-bottom: 0;
+    color: #f9f9f9;
+    letter-spacing: 0.02rem;
+  }
+  .accordion-content {
+    padding: 1rem;
+    display: none;
+    border-bottom: 1px solid rgba(45, 45, 45, 0.8);
+    /*background-color: rgba(25, 25, 25, 0.5);*/
+  }
+  
+  .menu-name {
+    font-family: 'Rajdhani-Semibold', sans-serif;
+    font-size: 1.125rem;
+  }
+
+  
+.scene-title{
+    opacity: 1;
+    font-family: 'Rajdhani-Semibold', sans-serif;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+    font-size: 42px;
+    transition: opacity 500ms ease-in-out;
+    background: rgba(0, 0, 0, 0);
+    color: #f9f9f9;
+    letter-spacing: 0.02rem;
+    -webkit-font-smoothing: antialiased;
+  }
+  

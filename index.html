@@ -5,47 +5,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moon Exploration</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/intro.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="//unpkg.com/d3-array"></script>
+    <script src="//unpkg.com/d3-scale"></script>
+    <script src="//unpkg.com/globe.gl"></script>
+    <script src="//unpkg.com/three"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/init.js"></script>
 </head>
 <body>
-    <div class="navbar">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#landings">Recent Landings</a>
-        <a href="#moonquakes">Moonquakes</a>
+<!-- Intro del sitio  -->
+<div class="container-main">
+    <div class="intro-screen">
+        <div class="intro-text">
+            <div class="intro-heading">
+                <h1>Moonquake 3D</h1>
+            </div>
+            <div class="inner">
+                
+                <p>This is a project powered by <a href="http://globe.gl/" target="_blank">Globe.gl</a> and <a href="http://threejs.org/" target="_blank">Three.js</a>. All objects within this project have been modeled to <span data-tooltip aria-haspopup="true" class="has-tip" data-disable-hover="false" tabindex="1" title="Scale = 1 * 10^-4.2">scale</span> based on real astronomical data. The scene currently represents the sun, the earth, the moon and the Moonquake. </p>
+                <p>
+                    <strong>For a better viewing experience, use a laptop or desktop with the latest version of Google Chrome or Safari Technology Preview.</strong>
+                </p>
+                <!-- <p><center><img src="Spacebee_logo.png" alt="Spacebee" width="300"  height="341"/></center></p> -->
+                
+                <div id="render-scene" class="button large render-scene" onclick="Init()">
+                    <span>View Moonquake 3D</span>
+                </div>
+                                
+            </div>
+            <div id="loading-prompt" class="loading-prompt" style="display: none;">
+                <span>Building the Moonquake 3D...</span>
+                <div id="realtime-updates"></div>
+                <div id="progress-bar" class="progress" role="progressbar" tabindex="0">
+                    <div class="progress-meter"></div>
+                </div>
+                <p><center><img src="resources/Spacebee_logo.png" alt="Spacebee" width="300"  height="341"/></center></p>
+            </div>
+        </div>
     </div>
-    <div class="scene-nav-menu">
+</div>
+<!--   Menu en escena -->
+    <div class="scene-nav-menu" style="display: none;">
+        <div class="menu-title">Menu</div>
         <ul class="accordion menu-list" role="tablist">
-            <div class="menu-title">Menu</div>
-            <li class="accordion-item">
-                <div class="toggle-container">
-                    <p>Landing Site</p>
-                    <label class="switch">
-                    <input id="toggle_landingSites" type="checkbox">
-                    <span class="slider"></span>
-                    </label>
-                </div>
+            <li class="has-submenu">
+                <a id="tszcj3-accordion-label" class="accordion-title planet-name" data-id="1" aria-controls="tszcj3-accordion" role="tab" aria-expanded="false" aria-selected="false">Moonquake Options</a>
+                <ul class="submenu">
+                    <li class="accordion-item">
+                        <div class="toggle-container">
+                            <p>Landing Site</p>
+                            <label class="switch">
+                            <input id="toggle_landingSites" type="checkbox">
+                            <span class="slider"></span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="accordion-item">
+                        <div class="toggle-container">
+                            <p>Moonquakes</p>
+                            <label class="switch">
+                            <input id="toggle_moonquakes" type="checkbox" style="display: inline-block;">
+                            <span class="slider"></span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="accordion-item">
+                        <div class="toggle-container">
+                            <p>Topographic </p>
+                            <label class="switch">
+                            <input id="toggle_topographic" type="checkbox">
+                            <span class="slider"></span>
+                            </label>
+                        </div>
+                    </li>
+                  </ul>
+                
+            </li>
+            <li class="has-submenu">
+                <a id="tszcj3-accordion-label" class="accordion-title planet-name" data-id="1" aria-controls="tszcj3-accordion" role="tab" aria-expanded="false" aria-selected="false">Light Options</a>
+                <ul class="submenu">
+                    <li class="accordion-item">
+                        <div class="toggle-container">
+                            <p>Light OFF</p>
+                            <label class="switch">
+                            <input id="toggle_light" type="checkbox">
+                            <span class="slider"></span>
+                            </label>
+                        </div>
+                    </li>
+                  </ul>
+                
+            </li>
+            <li class="has-submenu">
+                <a id="tszcj3-accordion-label" class="accordion-title planet-name" data-id="1" aria-controls="tszcj3-accordion" role="tab" aria-expanded="false" aria-selected="false">About</a>
+                <ul class="submenu">
+                    <li class="accordion-item">
+                        <a href="#home">Home</a>
+                    </li>
+                    <li class="accordion-item">
+                        <a href="#moonquakes">Moonquakes</a>
+                    </li>
+                    <li class="accordion-item">
+                        <a href="#about">About</a>
+                    </li>
+                    <li class="accordion-item">
+                        <a href="#landings">Recent Landings</a>
+                    </li>
+                </ul>
             </li>
             <li class="accordion-item">
-                <div class="toggle-container">
-                    <p>Moonquakes</p>
-                    <label class="switch">
-                    <input id="toggle_moonquakes" type="checkbox" style="display: inline-block;">
-                    <span class="slider"></span>
-                    </label>
-                </div>
-            </li>
-            <li class="accordion-item">
-                <div class="toggle-container">
-                    <p>Topographic </p>
-                    <label class="switch">
-                    <input id="toggle_topographic" type="checkbox">
-                    <span class="slider"></span>
-                    </label>
-                </div>
-            </li>
-            <li class="accordion-item">
-                <a id="accordion-label" class="accordion-title menu-name" role="tab" aria-expanded="false" aria-selected="false">Moon</a>
+                <a id="accordion-label" class="accordion-title menu-name" role="tab" aria-expanded="false" aria-selected="false">Moon information</a>
                 <div class="accordion-content" data-tab-content="" role="tabpanel" aria-labelledby="33crh5-accordion-label" aria-hidden="false" id="33crh5-accordion" style="display: block;">
                     <table class="moon_table">
                         <tbody><tr><td>Diameter</td><td>3476.2 km</td></tr><tr><td>Semi-major Axis</td><td>384,400 km</td></tr><tr><td>Orbital Period</td><td>27.3 days</td></tr><tr><td>Mass</td><td>0.07342 kg</td></tr></tbody>
@@ -53,11 +127,22 @@
                 </div>
             </li>
         </ul>
-    </div>
-    <div id="moonContainer">
-    </div>
+      </div>
 
-      
+<!--   TITULO EN ESCENA  -->
+    <div class="scene-title" style="display: none;">Moon Exploration</div>
+
+<!--   Caja de Informacion-->
+<div class="scene-nav-infoo" style="filter:alpha(opacity=100); opacity:1; display: none;">
+    <div id="Information">
+        <!--<a href="/resources/browse_Unified_Geologic_SCALE_only.jpg" target="_blank"><img src="resources/browse_Unified_Geologic_SCALE_only.jpg"  /></a>-->
+        <iframe src="/Geologic_SCALE.html" frameborder="0" width="400" height="550"> </iframe>
+    </div>
+</div>
+
+<!--   Escena MOON  -->
+    <div id="moonContainer" style="display: none;">
+    </div>
 <!--
     <main>
         <section id="about">
@@ -82,142 +167,15 @@
         <p>&copy; 2023 Moon Exploration</p>
     </footer>
     -->
-    <script src="//unpkg.com/d3-array"></script>
-    <script src="//unpkg.com/d3-scale"></script>
-    <script src="//unpkg.com/globe.gl"></script>
-    <script src="//unpkg.com/three"></script>
+    
+    
+    <script src="js/moon.js"></script>
     <script src="js/buttons.js"></script>
 
 <script>
-
-    function updateGlobeSize() {
-        // Function to update the globe size and projection on resize
-        const elem = document.getElementById('moonContainer');
-        moon
-            .width(elem.clientWidth)
-            .height(elem.clientHeight);
-    }
-
-
-    function loadMoonquakesData() {
-        fetch('./moonquakes.json')
-            .then((response) => response.json())
-            .then((data) => {
-                moonquakesData = data;
-                console.log("Moonquakes sites loaded");
-            })
-            .catch((error) => {
-                console.error('Error loading moonquakes  data:', error);
-            });
-    }
-
-    function loadLandingSitesData() {
-        fetch('./moon_landings.json')
-            .then((response) => response.json())
-            .then((data) => {
-                landingSitesData = data;
-                console.log("Landing sites loaded");
-            })
-            .catch((error) => {
-                console.error('Error loading landing site data:', error);
-            });
-    }
-
-    function ambientLightOn() {
-        const directionalLight = moon.scene().children.find(obj3d => obj3d.type === 'DirectionalLight');
-            if (directionalLight) {
-                directionalLight.intensity=0;
-            }
-            const ambientLight = moon.scene().children.find(obj3d => obj3d.type === 'AmbientLight');
-            if (ambientLight) {
-                ambientLight.intensity=3.14;
-            }
-  }
-  
-  function ambientLightOFF() {
-        const ambientLight = moon.scene().children.find(obj3d => obj3d.type === 'AmbientLight');
-            if (ambientLight) {
-                ambientLight.intensity=0;
-            }
-            const directionalLight = moon.scene().children.find(obj3d => obj3d.type === 'DirectionalLight');
-            if (directionalLight) {
-                directionalLight.intensity=2;
-            }
-  }
-    function dayCycle(orbitSpeed) {
-        setTimeout(() => {
-            // Wait for the scene to be populated (asynchronously)
-            ambientLightOFF();
-        }, 500);
-
-        // Create an orbit path
-        const orbitRadius = 5; // Adjust the radius of the orbit path as needed
-        const orbitSegments = 64; // Adjust the number of segments for a smoother appearance
-        const orbitGeometry = new THREE.CircleGeometry(orbitRadius, orbitSegments);
-        const orbitMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
-        const orbit = new THREE.Line(orbitGeometry, orbitMaterial);
-        orbit.rotation.x = Math.PI / 2; // Rotate the orbit path to be horizontal
-        moon.scene().add(orbit);
-
-        // Define a function to make the directional light orbit
-        function orbitDirectionalLight() {
-            const directionalLight = moon.scene().children.find(obj3d => obj3d.type === 'DirectionalLight');
-            if (directionalLight) {
-            // Adjust the orbit speed as needed
-           
-            // Update the position of the directional light to follow the orbit path
-            const currentTime = Date.now();
-            const angle = (currentTime * orbitSpeed) % (Math.PI * 2); // Calculate the angle based on time
-            const x = orbitRadius * Math.cos(angle);
-            const z = orbitRadius * Math.sin(angle);
-            directionalLight.position.set(x, 1, z);
-            }
-
-
-            // Request the next animation frame
-            requestAnimationFrame(orbitDirectionalLight);
-        }
-
-        // Call the orbitDirectionalLight function to start the orbit animation
-        orbitDirectionalLight();
-    }
-
-    function loadTexture(){
-        const textureLoader = new THREE.TextureLoader();
-        const texture = textureLoader.load('/resources/lunar_surface_4k.png'); // Adjust the path as needed
-        // Listen for the resize event and update the globe size
-        moon.globeMaterial(new THREE.MeshStandardMaterial({ map: texture }));      
-    }
-
-    const moonContainer = document.getElementById('moonContainer');
-    const moon = Globe()
-        //.globeImageUrl('/resources/lunar_surface_4k.png')
-        .bumpImageUrl('/resources/lunar_height_map_16.png')
-        .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
-        .showGraticules(false)
-        .showAtmosphere(false) // moon has no atmosphere
-        (moonContainer);
-        console.log(moon.scene());
-
-
-    //Load data to variables
-    let landingSitesData = [];
-    loadLandingSitesData();
-    let moonquakesData = [];
-    loadMoonquakesData();
-    // Call the setupScene function to initialize your scene
-    const orbitSpeed = 0.0005;
-    dayCycle(orbitSpeed);
-    //Load Texture
-    loadTexture();
-    // Listen for the resize event and update the globe size
-
-
-
     window.addEventListener('resize', updateGlobeSize);
     // Call the updateGlobeSize function initially to set the initial size
-    updateGlobeSize();
-    
+    //updateGlobeSize();
 </script>
 </body>
 </html>
