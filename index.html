@@ -74,11 +74,26 @@
                             </label>
                         </div>
                     </li>
+                  </ul>
+                
+            </li>
+            <li class="has-submenu">
+                <a id="tszcj3-accordion-label" class="accordion-title planet-name" data-id="1" aria-controls="tszcj3-accordion" role="tab" aria-expanded="false" aria-selected="false">Moon Options</a>
+                <ul class="submenu">
                     <li class="accordion-item">
                         <div class="toggle-container">
                             <p>Topographic </p>
                             <label class="switch">
                             <input id="toggle_topographic" type="checkbox">
+                            <span class="slider"></span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="accordion-item">
+                        <div class="toggle-container">
+                            <p>Geological map </p>
+                            <label class="switch">
+                            <input id="toggle_Geologicalmap" type="checkbox">
                             <span class="slider"></span>
                             </label>
                         </div>
@@ -133,16 +148,19 @@
     <div class="scene-title" style="display: none;">Moon Exploration</div>
 
 <!--   Caja de Informacion-->
-<div class="scene-nav-infoo" style="filter:alpha(opacity=100); opacity:1; display: none;">
-    <div id="Information">
+<div class="scene-nav-infoo" style="filter:alpha(opacity=100); opacity:1; display: block;">
+    <div id="Information" name="Information">
         <!--<a href="/resources/browse_Unified_Geologic_SCALE_only.jpg" target="_blank"><img src="resources/browse_Unified_Geologic_SCALE_only.jpg"  /></a>-->
-        <iframe src="/Geologic_SCALE.html" frameborder="0" width="400" height="550"> </iframe>
+        
     </div>
 </div>
 
 <!--   Escena MOON  -->
     <div id="moonContainer" style="display: none;">
     </div>
+<!--   Imagen cargando -->
+<div id="cargando" name="cargando" class="cargando" style="position: absolute; top: 35%; left: 39%; display: none;"><img src="resources/img/Cargando.gif" width="300" height="200"></div>
+
 <!--
     <main>
         <section id="about">
@@ -175,7 +193,7 @@
 <script>
     window.addEventListener('resize', updateGlobeSize);
     // Call the updateGlobeSize function initially to set the initial size
-    //updateGlobeSize();
+    updateGlobeSize();
 </script>
 </body>
 </html>

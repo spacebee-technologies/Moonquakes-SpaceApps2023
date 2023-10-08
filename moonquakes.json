@@ -11,7 +11,9 @@
         "name": "ALSEP 12, Oceanus Procellarum",
         "mission": "Apollo 12",
         "lat": -3.01084,
-        "lng": -23.42456
+        "lng": -23.42456,
+        "Info":"ALSEP%20significa%20Paquete%20de%20Experimentos%20en%20la%20Superficie%20Lunar%20(Apollo%20Lunar%20Surface%20Experiments%20Package,%20por%20sus%20siglas%20en%20inglés),%20y%20Hadley%20Rille%20se%20refiere%20a%20una%20característica%20geológica%20en%20la%20Luna.%20Específicamente,%20ALSEP%2015%20está%20asociado%20con%20la%20misión%20Apollo%2015,%20que%20fue%20la%20cuarta%20misión%20tripulada%20en%20el%20programa%20Apollo%20y%20la%20primera%20en%20contar%20con%20una%20estancia%20prolongada%20en%20la%20superficie%20lunar.",
+        "Image":"prueba.jpg"
     },
     {
         "code": "S14",
