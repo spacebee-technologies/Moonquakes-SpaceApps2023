@@ -257,7 +257,7 @@ function updateMoonquakes(){
     moonquakeParents.forEach(function(parent) {
         let id_moonquake=parent.getAttribute('data-info');
         let moonquakeInfo = moonquakesData.find(item => item.id ===parseInt(id_moonquake));
-        if (dateSelected >= moonquakeInfo.date) {
+        if (dateSelected.substr(0, 4) == moonquakeInfo.date.substr(0, 4)) {
             parent.style.display = "block"; 
 
             parent.addEventListener('mouseover', function() {

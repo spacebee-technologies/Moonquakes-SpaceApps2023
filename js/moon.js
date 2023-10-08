@@ -79,6 +79,7 @@ function loadData(){
                         <p style="font-size: 10pt; text-align: center;">
                             <b>${d.name}</b><br>
                             ${d.mission}
+                            ${d.date}
                             <br>
                         </p>
                     </div>
