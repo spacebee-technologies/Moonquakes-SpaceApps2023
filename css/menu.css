@@ -81,7 +81,7 @@ body {
 .scene-nav-infoo {
   right: 0;
   top: 0;
-  width: 400px;
+  width: 30%;
   height: auto;
   /* text-align: center; */
   /* color: slategrey;*/
@@ -94,7 +94,9 @@ body {
   border: 1px solid rgba(45, 45, 45, 0.85);
   margin: 0;
   }
-  
+  .nav-info-iframe{
+    width: 100%;
+  }
   .menu-title {
     font-family: 'Rajdhani-Regular', sans-serif;
     font-size: 1.5rem;
