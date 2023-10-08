@@ -266,3 +266,15 @@ input[type="range"]:focus::-moz-range-thumb {
   width: 50px;
   text-align: center;
 }
+
+.spin {
+  animation: spin 3.5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg); }
+  50% { transform: rotate(180deg); }
+  75% { transform: rotate(270deg); }
+  100% { transform: rotate(360deg); }
+}
