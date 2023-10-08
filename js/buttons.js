@@ -254,7 +254,6 @@ function toggleLandingSites() {
 
 function updateMoonquakes(){
     const moonquakeParents = moonContainer.querySelectorAll(".moonquake-parent");
-    console.log(moonquakeParents);
     let activeMoonquakes = [];
     moonquakeParents.forEach(function(parent) {
         let id_moonquake=parent.getAttribute('data-info');
@@ -285,7 +284,6 @@ function updateMoonquakes(){
         }
         else{
             parent.style.display = "none"; 
-            moon.ringsData(moonquakeInfo);
         }
         moon.ringsData(activeMoonquakes);
     });
@@ -311,7 +309,6 @@ function toggleOtherMissions() {
     if (otherMissionsVisible) {
         
         const otherMissions = moonContainer.querySelectorAll(".otherMissions-container");
-        console.log(otherMissions);
         otherMissions.forEach(function(mission) {
             let id_mission=mission.getAttribute('data-info');
             let missionData = otherMissionsData.find(item => item.id ===parseInt(id_mission));
@@ -331,7 +328,6 @@ function toggleOtherMissions() {
             }); 
 
             mission.addEventListener('click', function() {
-                console.log(missionInfo);
                 var miElemento = document.getElementById("Information");
                 miElemento.innerHTML = '<iframe src="/Informacion.html?Titulo='+missionData.name+'-'+missionData.agency+'&Texto='+missionData.info+'&image='+missionData.image+'" frameborder="0" width="400" height="550"> </iframe>';
                 var miElemento = document.querySelector(".scene-nav-infoo");
