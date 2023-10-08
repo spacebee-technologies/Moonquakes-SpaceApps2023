@@ -2949,12 +2949,12 @@ h1, h2, h3, h4, h5, h6 {
     right: 0;
     font-size: 1rem;
     z-index: 3;
-    background: black;
+    /* background: black; */
     padding-top: 20px;
 }
 
 .intro-heading {
-    background: url("../resources/img/fondo_intro.png") no-repeat center center;
+    /* background: url("../resources/img/fondo_intro.png") no-repeat center center; */
     text-transform: uppercase;
     letter-spacing: 0.25rem;
     text-align: center;
@@ -3022,6 +3022,7 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
     display: block;
     font-size: 1.4125rem;
+    background-color: black;
 }
 
 .scene {
