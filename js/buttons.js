@@ -2,12 +2,12 @@ const toggle_landingSites = document.getElementById('toggle_landingSites');
 let landingSitesVisible = false;
 const toggle_moonquakes = document.getElementById('toggle_moonquakes');
 let moonquakesVisible = false;
-const toggle_topographic = document.getElementById('toggle_topographic');
-let topographicVisible=false;
 const toggle_light = document.getElementById('toggle_light');
 let lightVisible=true;
+const toggle_topographic = document.getElementById('toggle_topographic');
+let topographicVisible=false;
 const toggle_Geological = document.getElementById('toggle_Geologicalmap');
-let GeologicalVisible=true;
+let GeologicalVisible=false;
 
 const colorScale = d3.scaleOrdinal(['orangered', 'mediumblue', 'darkgreen', 'yellow']);
 const labelsTopOrientation = new Set(['Apollo 12', 'Luna 2', 'Luna 20', 'Luna 21', 'Luna 24', 'LCROSS Probe']); // avoid label collisions
@@ -22,6 +22,11 @@ function ambientLightOn() {
         if (ambientLight) {
             ambientLight.intensity=3.14;
         }
+        if(!toggle_light.checked){
+            toggle_light.checked=true;
+        }
+      
+
         
 }
 
@@ -34,9 +39,72 @@ function ambientLightOFF() {
         if (directionalLight) {
             directionalLight.intensity=2;
         }
+        if(toggle_light.checked){
+            toggle_light.checked=false;
+        }
+        
+        
 }
 //Fin
 
+
+
+
+
+function toggleTopographic() {
+    topographicVisible = !topographicVisible;
+    if (topographicVisible) {
+        //!Check Is not a texture
+        cargar_textura('/resources/lunar_topographic_map.png');
+
+        //Toggle everything else false
+        toggle_Geological.checked=false;
+        GeologicalVisible=false;
+
+        ambientLightOn();
+    } else {
+        //!Check Add transition
+        loadTexture();
+        ambientLightOFF();
+    }
+}
+
+function showGeological(flag){
+    if(flag){
+        
+    }
+}
+function toggleGeological() {
+    if (!GeologicalVisible) {
+        // Obtén el elemento por su ID
+        var miElemento = document.getElementById("Information");
+        miElemento.innerHTML = '<iframe src="/Geologic_SCALE.html" frameborder="0" width="400" height="550"> </iframe>';
+        // Agrego contenido al recuadro de info
+        // Obtén el elemento por su ID
+        var miElemento = document.querySelector(".scene-nav-infoo");
+        // Cambia el estilo del elemento
+        miElemento.style.display = "block";
+        cargar_textura('/resources/lunar_unifiedGeologicMap.png');
+        ambientLightOn();
+
+        //Toggle everything else false
+        toggle_topographic.checked=false;
+        topographicVisible=false;
+
+    } else {
+        //!Check Add transition
+        loadTexture();
+        ambientLightOFF();
+        // Obtén el elemento por su ID
+        var miElemento = document.querySelector(".scene-nav-infoo");
+        // Cambia el estilo del elemento
+        miElemento.style.display = "none";
+        // Obtén el elemento por su ID
+        var miElemento = document.getElementById("Information");
+        miElemento.innerHTML = "";
+    }
+    GeologicalVisible = !GeologicalVisible;
+}
 
 function updateLandingSites(){
     const labeLandingSites = moonContainer.querySelectorAll(".landingSite-container");
@@ -65,6 +133,7 @@ function updateLandingSites(){
 
     });
 }
+
 function toggleLandingSites() {
     landingSitesVisible = !landingSitesVisible;
     if (landingSitesVisible) {
@@ -78,20 +147,6 @@ function toggleLandingSites() {
         toggle_landingSites.classList.remove('on');
     }
 
-}
-
-function toggleTopographic() {
-    topographicVisible = !topographicVisible;
-    if (topographicVisible) {
-        //!Check Is not a texture
-        cargar_textura('/resources/lunar_topographic_map.png');
-        //moon.globeImageUrl('/resources/lunar_topographic_map.jpg');
-        ambientLightOn();
-    } else {
-        //!Check Add transition
-        loadTexture();
-        ambientLightOFF();
-    }
 }
 
 function toggleMoonquakes() {
@@ -149,12 +204,12 @@ function toggleMoonquakes() {
 function togglelight() {
     if (lightVisible) {
         //!Check Is not a texture
-        if (toggle_light.checked){
-            ambientLightOn();}
+        // if (toggle_light.checked){}
+            ambientLightOn();
     } else {
         //!Check Add transition
-        if (!toggle_light.checked){
-            ambientLightOFF();}
+        // if (!toggle_light.checked){}
+            ambientLightOFF();
 
     }
     lightVisible = !lightVisible;
@@ -183,32 +238,7 @@ function cargar_textura(ruta){
     moon.globeMaterial(new THREE.MeshStandardMaterial({ map: texture }));
 }
 
-function toggleGeological() {
-    GeologicalVisible = !GeologicalVisible;
-    if (!GeologicalVisible) {
-        // Obtén el elemento por su ID
-        var miElemento = document.getElementById("Information");
-        miElemento.innerHTML = '<iframe src="/Geologic_SCALE.html" frameborder="0" width="400" height="550"> </iframe>';
-        // Agrego contenido al recuadro de info
-        // Obtén el elemento por su ID
-        var miElemento = document.querySelector(".scene-nav-infoo");
-        // Cambia el estilo del elemento
-        miElemento.style.display = "block";
-        cargar_textura('/resources/lunar_unifiedGeologicMap.png');
-        ambientLightOn();
-    } else {
-        //!Check Add transition
-        loadTexture();
-        ambientLightOFF();
-        // Obtén el elemento por su ID
-        var miElemento = document.querySelector(".scene-nav-infoo");
-        // Cambia el estilo del elemento
-        miElemento.style.display = "none";
-        // Obtén el elemento por su ID
-        var miElemento = document.getElementById("Information");
-        miElemento.innerHTML = "";
-    }
-}
+
 //Listen for toggles buttons 
 toggle_landingSites.addEventListener('click', toggleLandingSites);
 toggle_moonquakes.addEventListener('click', toggleMoonquakes);
@@ -263,7 +293,6 @@ function updateSliders() {
 
 
   dateSelected = `${year}-${month}-${day}`;
-  console.log(dateSelected);
   // Calculate the progress as a percentage for each slider
   let progressYear = ((year - 1960) / (sliderYear.max - sliderYear.min)) * 100;
   let progressMonth = ((month - 1) / (sliderMonth.max - sliderMonth.min)) * 100;
