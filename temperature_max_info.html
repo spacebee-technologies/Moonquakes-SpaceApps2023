@@ -1,8 +1,44 @@
 <!DOCTYPE html>
+<style>
+    body{
+        color: white;
+        background: transparent;
+    }
+    body::-webkit-scrollbar {
+      width: 12px;               /* width of the entire scrollbar */
+    }
+    
+    body::-webkit-scrollbar-track {
+      background: rgb(0, 0, 0);        /* color of the tracking area */
+    }
+    
+    body::-webkit-scrollbar-thumb {
+      background-color: rgb(255, 255, 255);    /* color of the scroll thumb */
+      border-radius: 20px;       /* roundness of the scroll thumb */
+      border: 3px solid rgb(0, 0, 0);  /* creates padding around scroll thumb */
+    }    
+    </style>
+
 <html>
 <head>
 </head>
 <body>
-    <img src="resources/lunar_max_temperature_SCALE.png">
+    <h1>Map of Maximum Temperature</h1>
+    <p>
+        This map displays the average maximum surface temperatures on the Moon, which vary significantly across its surface. These variations are influenced by factors such as albedo (reflectivity), orbital positioning, and celestial geometry.
+
+        At noon, when the Sun is directly overhead, peak temperatures are observed. These peak temperatures are determined by the albedo of the surface and other environmental factors. Conversely, the lowest temperatures occur just before local sunrise and are closely tied to the near-surface thermophysical properties.
+
+        Global temperature maps provide a comprehensive view of these temperature fluctuations. In equatorial regions, the mean temperature averages around 215.5 Kelvin (K). The average maximum temperature reaches 392.3 K, while the average minimum temperature drops to 94.3 K. This substantial temperature swing of approximately 300 K is evident (see Fig. 19). 
+
+        In polar regions, especially those beyond 85° latitude, the climate is significantly colder. Here, average maximum temperatures are around 202 K, while minimum temperatures drop even further to 50 K, resulting in an overall mean temperature of about 104 K. Notably, the south polar region experiences slightly higher mean maximum temperatures due to variations in topography, such as rugged terrain and elevation distribution (Smith et al., 2010).
+
+        Permanent shadowing occurs below 60° latitude due to the Moon's maximum solar declination of 1.54°. This phenomenon significantly impacts surface illumination and contributes to distinct temperature patterns in polar areas (McGovern et al., 2013; Siegler et al., 2015; Mazarico et al., 2011b).
+    </p>
+    <p>
+        Source: <a href="https://www.sciencedirect.com/science/article/pii/S0019103516304869#sec0006" target="_blank">Read more on ScienceDirect</a>
+    </p>
+    <h2>Legend</h2>
+    <img src="resources/lunar_max_temperature_SCALE.png" style="height: auto;">
 </body>
 </html>

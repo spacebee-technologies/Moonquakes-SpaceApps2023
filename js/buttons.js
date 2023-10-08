@@ -75,7 +75,7 @@ function toggleTopographic() {
 
         // Obtén el elemento por su ID
         var miElemento = document.getElementById("Information");
-        miElemento.innerHTML = '<iframe src="/topografich_info.html" frameborder="0" width="400" height="550"> </iframe>';
+        miElemento.innerHTML = '<iframe class="nav-info-iframe" src="/topografich_info.html" frameborder="0"> </iframe>';
         // Agrego contenido al recuadro de info
         // Obtén el elemento por su ID
         var miElemento = document.querySelector(".scene-nav-infoo");
@@ -148,7 +148,7 @@ function toggleTemperatureMAX() {
 
         // Obtén el elemento por su ID
         var miElemento = document.getElementById("Information");
-        miElemento.innerHTML = '<iframe src="temperature_max_info.html" width="500" frameborder="0">';
+        miElemento.innerHTML = '<iframe class="nav-info-iframe" src="temperature_max_info.html" width="500"heg frameborder="0">';
         // Agrego contenido al recuadro de info
         // Obtén el elemento por su ID
         var miElemento = document.querySelector(".scene-nav-infoo");
@@ -186,7 +186,7 @@ function toggleTemperatureMIN() {
 
         // Obtén el elemento por su ID
         var miElemento = document.getElementById("Information");
-        miElemento.innerHTML = '<iframe src="temperature_min_info.html" width="500" frameborder="0">';
+        miElemento.innerHTML = '<iframe class="nav-info-iframe" src="temperature_min_info.html" width="500" frameborder="0">';
         // Agrego contenido al recuadro de info
         // Obtén el elemento por su ID
         var miElemento = document.querySelector(".scene-nav-infoo");
@@ -276,7 +276,7 @@ function updateMoonquakes(){
 
             parent.addEventListener('click', function() {
                 var miElemento = document.getElementById("Information");
-                miElemento.innerHTML = '<iframe src="/Informacion.html?Titulo='+moonquakeInfo.name+'-'+moonquakeInfo.mission+'&Texto='+moonquakeInfo.Info+'&image='+moonquakeInfo.Image+'" frameborder="0" width="400" height="550"> </iframe>';
+                miElemento.innerHTML = '<iframe class="nav-info-iframe" src="/Informacion.html?Titulo='+moonquakeInfo.name+'-'+moonquakeInfo.mission+'&Texto='+moonquakeInfo.Info+'&image='+moonquakeInfo.Image+'" frameborder="0" width="400" height="550"> </iframe>';
                 var miElemento = document.querySelector(".scene-nav-infoo");
                 miElemento.style.display = "block";
             });
@@ -329,7 +329,7 @@ function toggleOtherMissions() {
 
             mission.addEventListener('click', function() {
                 var miElemento = document.getElementById("Information");
-                miElemento.innerHTML = '<iframe src="/Informacion.html?Titulo='+missionData.name+'-'+missionData.agency+'&Texto='+missionData.info+'&image='+missionData.image+'" frameborder="0" width="400" height="550"> </iframe>';
+                miElemento.innerHTML = '<iframe class="nav-info-iframe" src="/Informacion.html?Titulo='+missionData.name+'-'+missionData.agency+'&Texto='+missionData.info+'&image='+missionData.image+'" frameborder="0" width="400" height="550"> </iframe>';
                 var miElemento = document.querySelector(".scene-nav-infoo");
                 miElemento.style.display = "block";
             });

@@ -1,9 +1,39 @@
 <!DOCTYPE html>
+<style>
+    body{
+        color: white;
+        background: transparent;
+    }
+    body::-webkit-scrollbar {
+      width: 12px;               /* width of the entire scrollbar */
+    }
+    
+    body::-webkit-scrollbar-track {
+      background: rgb(0, 0, 0);        /* color of the tracking area */
+    }
+    
+    body::-webkit-scrollbar-thumb {
+      background-color: rgb(255, 255, 255);    /* color of the scroll thumb */
+      border-radius: 20px;       /* roundness of the scroll thumb */
+      border: 3px solid rgb(0, 0, 0);  /* creates padding around scroll thumb */
+    }    
+    </style>
+
 <html>
 <head>
-    <title>Embedded Page</title>
 </head>
 <body>
-    <img src="resources/lunar_topographic_map_SCALE.png">
+    <h1>Topographic Lunar Map</h1>
+    <p>
+        This is a colorized representation of the Lunar Orbiter Laser Altimeter (LOLA) original polar digital elevation model (DEM) obtained from NASA's Lunar Reconnaissance Orbiter (LRO) spacecraft. The DEM provides a detailed shape map of the Moon at a resolution of 100 meters per pixel, based on altimetry data collected up to September 2011.
+
+        The LOLA instrument has gathered an extensive dataset comprising over 6.5 billion measurements, resulting in highly precise global surface height information. The vertical precision of this data is approximately 10 centimeters, with an overall accuracy of about 1 meter.
+
+        The Lunar Reconnaissance Orbiter (LRO) mission, launched by NASA in June 2009, has played a crucial role in generating high-resolution images of the lunar surface. These images have significantly contributed to lunar research and mapping efforts.
+
+        <strong>Source:</strong> <a href="https://astrogeology.usgs.gov/search/map/Moon/LMMP/LOLA-derived/Lunar_LRO_LOLA_ClrShade_Global_128ppd_v04" target="_blank">Read more on USGS Astrogeology</a>
+    </p>
+    <h1>Legend</h1>
+    <img src="resources/lunar_topographic_map_SCALE.png" style="height: auto;">
 </body>
 </html>

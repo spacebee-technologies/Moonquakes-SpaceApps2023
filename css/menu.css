@@ -96,6 +96,8 @@ body {
   }
   .nav-info-iframe{
     width: 100%;
+    height: 80vh;
+    max-height: 80vh;
   }
   .menu-title {
     font-family: 'Rajdhani-Regular', sans-serif;
@@ -161,4 +163,5 @@ body {
     letter-spacing: 0.02rem;
     -webkit-font-smoothing: antialiased;
   }
+  
   
