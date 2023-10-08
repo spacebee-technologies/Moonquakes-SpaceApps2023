@@ -207,10 +207,11 @@ function toggleLandingSites() {
 function updateMoonquakes(){
     const moonquakeParents = moonContainer.querySelectorAll(".moonquake-parent");
     console.log(moonquakeParents);
+    let activeMoonquakes = [];
     moonquakeParents.forEach(function(parent) {
         let id_moonquake=parent.getAttribute('data-info');
         let moonquakeInfo = moonquakesData.find(item => item.id ===parseInt(id_moonquake));
-        if (true) {
+        if (dateSelected >= moonquakeInfo.date) {
             parent.style.display = "block"; 
 
             parent.addEventListener('mouseover', function() {
@@ -232,12 +233,13 @@ function updateMoonquakes(){
                 var miElemento = document.querySelector(".scene-nav-infoo");
                 miElemento.style.display = "block";
             });
-
+            activeMoonquakes.push(moonquakeInfo)
         }
         else{
-            moonquakeParent.style.display = "none"; 
+            parent.style.display = "none"; 
+            moon.ringsData(moonquakeInfo);
         }
-
+        moon.ringsData(activeMoonquakes);
     });
 }
 
@@ -247,7 +249,6 @@ function toggleMoonquakes() {
         updateMoonquakes();
         moon.ringMaxRadius(2);
         moon.ringColor(() => '#ed5d40');
-        moon.ringsData(moonquakesData);
     } else {
         const moonquakeParents = moonContainer.querySelectorAll(".moonquake-parent");
         moonquakeParents.forEach(el => el.style.display = "none");
