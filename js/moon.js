@@ -7,11 +7,16 @@ function updateGlobeSize() {
 }
 
 
+//Load data to variables
+
 function loadMoonquakesData() {
     fetch('./moonquakes.json')
         .then((response) => response.json())
         .then((data) => {
             moonquakesData = data;
+            moonquakesData.forEach((moonquake) => {
+                moonquake.type = 'moonquake'; // Modify as needed
+        });
             console.log("Moonquakes sites loaded");
         })
         .catch((error) => {
@@ -20,16 +25,70 @@ function loadMoonquakesData() {
 }
 
 function loadLandingSitesData() {
-    fetch('./moon_landings.json')
-        .then((response) => response.json())
-        .then((data) => {
-            landingSitesData = data;
-            console.log("Landing sites loaded");
-        })
-        .catch((error) => {
-            console.error('Error loading landing site data:', error);
+fetch('./moon_landings.json')
+    .then((response) => response.json())
+    .then((data) => {
+        landingSitesData = data;
+        // Add a new JSON call item to each object
+        landingSitesData.forEach((landingSite) => {
+            landingSite.type = 'landingSite'; // Modify as needed
         });
+        console.log("Landing sites loaded with new items");
+    })
+    .catch((error) => {
+        console.error('Error loading landing site data:', error);
+    });
 }
+
+
+function loadData(){
+    loadLandingSitesData();
+    loadMoonquakesData();
+    setTimeout(() => {
+        const data = [landingSitesData, moonquakesData];
+        const dataFlatten = [].concat(...data);
+        moon.htmlElement(d => {
+        const el = document.createElement('div');
+        if(d.type=='landingSite'){
+            el.innerHTML = `
+            <div class="landingSite-container" ;>
+                <div  display: inline-block; text-align: center;">
+                    <b>${d.label}</b>
+                    <div class="landingSite-info">${d.agency} - ${d.program} Program</div>
+                    <div class="landingSite-info">Landing on <i>${new Date(d.date).toLocaleDateString()}</i></div>
+                </div>
+            </div>
+
+            `;
+
+            el.style['pointer-events'] = 'auto';
+            el.style.cursor = 'pointer';
+        }
+        else{
+              // Escape and stringify the JSON data
+              const jsonString = JSON.stringify(d).replace(/ /g, '/-!');
+            el.innerHTML = `
+            <div class="moonquake-parent"  data-info=${jsonString}>
+                <i class="fas fa-exclamation exclamation"></i>
+                <div class="moonquake-element hover-effect">
+                    <p style="font-size: 10pt; text-align: center;">
+                        <b>${d.name}</b><br>
+                        ${d.mission}
+                        <br>
+                    </p>
+                </div>
+            </div>
+            `;
+            el.style['pointer-events'] = 'auto';
+            el.style.cursor = 'pointer';
+        }        
+        return el;
+    });
+    
+        moon.htmlElementsData(dataFlatten);
+    }, 500);
+    
+    }
 
     
 function ambientLightOn() {
@@ -112,10 +171,11 @@ const moon = Globe()
 
 
 //Load data to variables
-let landingSitesData = [];
-loadLandingSitesData();
-let moonquakesData = [];
-loadMoonquakesData();
+
+let landingSitesData=[];
+let moonquakesData=[];
+const data=[];
+loadData();
 // Call the setupScene function to initialize your scene
 dayCycle();
 //Load Texture

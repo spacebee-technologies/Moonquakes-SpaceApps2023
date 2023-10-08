@@ -40,21 +40,33 @@ function toggleLandingSites() {
     landingSitesVisible = !landingSitesVisible;
     if (landingSitesVisible) {
         toggle_landingSites.classList.add('on');
-        moon.labelText('label')
-        .labelSize(1.7)
-        .labelDotRadius(0.4)
-        .labelDotOrientation(d => labelsTopOrientation.has(d.label) ? 'top' : 'bottom')
-        .labelColor(d => colorScale(d.agency))
-        .labelLabel(d => `
-            <div><b>${d.label}</b></div>
-            <div>${d.agency} - ${d.program} Program</div>
-            <div>Landing on <i>${new Date(d.date).toLocaleDateString()}</i></div>
-        `)
-        .onLabelClick(d => window.open(d.url, '_blank'));
-        moon.labelsData(landingSitesData);
+        const labeLandingSites = moonContainer.querySelectorAll(".landingSite-container");
+        // Use forEach to change the style of each element
+        labeLandingSites.forEach(function(landingSite) {
+            landingSite.style.display = "block"; 
+            landingSite.addEventListener('mouseover', function() {
+                const landingSiteInfo = landingSite.querySelectorAll('.landingSite-info');
+                landingSiteInfo.forEach(function(element) {
+                    element.style.display = 'block';
+                });
+                
+            });
+        
+            // Add mouseout event listener
+            landingSite.addEventListener('mouseout', function() {
+                const landingSiteInfo = landingSite.querySelectorAll('.landingSite-info');
+                landingSiteInfo.forEach(function(element) {
+                    element.style.display = 'none';
+                });
+            }); 
+        });
+        
     } else {
+        const labeLandingSites = moonContainer.querySelectorAll(".landingSite-container");
+        labeLandingSites.forEach(function(landingSite) {
+            landingSite.style.display = "none"; 
+        });
         toggle_landingSites.classList.remove('on');
-        moon.labelsData([]);
     }
 
 }
@@ -63,7 +75,7 @@ function toggleTopographic() {
     topographicVisible = !topographicVisible;
     if (topographicVisible) {
         //!Check Is not a texture
-        cargar_textura('/resources/lunar_topographic_map.jpg');
+        cargar_textura('/resources/lunar_topographic_map.png');
         //moon.globeImageUrl('/resources/lunar_topographic_map.jpg');
         ambientLightOn();
     } else {
@@ -77,62 +89,51 @@ function toggleMoonquakes() {
     moonquakesVisible = !moonquakesVisible;
     if (moonquakesVisible) {
         toggle_moonquakes.classList.add('on');
-        moon.htmlElementsData(moonquakesData);
-        moon.htmlElement(d => {
-        // Obtén el elemento por su ID
-        const el = document.createElement('div');
-        el.innerHTML = `
-            <div class="moonquake-parent">
-                <i class="fas fa-exclamation exclamation"></i>
-                <div class="moonquake-element hover-effect">
-                    <p style="font-size: 10pt; text-align: center;">
-                        <b>${d.name}</b><br>
-                        ${d.mission}
-                        <br>
-                    </p>
-                </div>
-            </div>
-        `;
-        el.style['pointer-events'] = 'auto';
-        el.style.cursor = 'pointer';
-        // Add the onmouseover event handler
-        el.onmouseover = () => {
-            el.querySelector('.moonquake-element').style.display = 'block';
-            el.querySelector('.exclamation').style.display = 'none';
-        };
-
-        // Add the onmouseout event handler
-        el.onmouseout = () => {
-            el.querySelector('.moonquake-element').style.display = 'none';
-            el.querySelector('.exclamation').style.display = 'block';
-        };
-        el.onclick = () => {
-            var miElemento = document.getElementById("Information");
-            miElemento.innerHTML = '<iframe src="/Informacion.html?Titulo='+d.name+'-'+d.mission+'&Texto='+d.Info+'&image='+d.Image+'" frameborder="0" width="400" height="550"> </iframe>';
-            // Agrego contenido al recuadro de info
-            // Obtén el elemento por su ID
-            var miElemento = document.querySelector(".scene-nav-infoo");
-            // Cambia el estilo del elemento
-            miElemento.style.display = "block";
+        const moonquakeParents = moonContainer.querySelectorAll(".moonquake-parent");
+        moonquakeParents.forEach(function(parent) {
+            parent.style.display = "block";
+            parent.addEventListener('mouseover', function() {
+                const moonquakeElement = parent.querySelector('.moonquake-element');
+                const exclamation = parent.querySelector('.exclamation');
         
-            console.info(d);
-        }
-        return el;
+                moonquakeElement.style.display = 'block';
+                exclamation.style.display = 'none';
+            });
+            parent.addEventListener('click', function() {
+                let infoStr = parent.getAttribute('data-info');
+                const infoJson = JSON.parse(infoStr.replace(/\/-!/g, ' '));
+                var miElemento = document.getElementById("Information");
+                miElemento.innerHTML = '<iframe src="/Informacion.html?Titulo='+infoJson.name+'-'+infoJson.mission+'&Texto='+infoJson.Info+'&image='+infoJson.Image+'" frameborder="0" width="400" height="550"> </iframe>';
+                // Agrego contenido al recuadro de info
+                // Obtén el elemento por su ID
+                var miElemento = document.querySelector(".scene-nav-infoo");
+                // Cambia el estilo del elemento
+                miElemento.style.display = "block";
+            });
+            // Add mouseout event listener
+            parent.addEventListener('mouseout', function() {
+                const moonquakeElement = parent.querySelector('.moonquake-element');
+                const exclamation = parent.querySelector('.exclamation');
+        
+                moonquakeElement.style.display = 'none';
+                exclamation.style.display = 'block';
+            }); 
         });
-        
-       
+        const exlamationsMark = moonContainer.querySelectorAll(".exclamation");
+        exlamationsMark.forEach(function(exclamation) {
+            exclamation.style.display = "block"; 
+        });
         moon.ringMaxRadius(2);
         moon.ringsData(moonquakesData);
     } else {
         toggle_moonquakes.classList.remove('on');
-        moon.htmlElementsData([]);
         const moonquakeElements = document.querySelectorAll('.moonquake-element, .exclamation');
-        moonquakeElements.forEach(el => el.remove());
+        moonquakeElements.forEach(el => el.style.display = "none");
         moon.ringMaxRadius(0);
-        // Obtén el elemento por su ID
-        var miElemento = document.querySelector(".scene-nav-infoo");
-        // Cambia el estilo del elemento
-        miElemento.style.display = "none";
+        // var miElemento = document.querySelector(".scene-nav-infoo");
+        // // Cambia el estilo del elemento
+        // miElemento.style.display = "none";
+        
     }
 }
 
@@ -196,7 +197,6 @@ function toggleGeological() {
         miElemento.innerHTML = "";
     }
 }
-
 //Listen for toggles buttons 
 toggle_landingSites.addEventListener('click', toggleLandingSites);
 toggle_moonquakes.addEventListener('click', toggleMoonquakes);
