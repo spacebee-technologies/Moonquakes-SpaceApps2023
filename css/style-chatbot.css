@@ -33,6 +33,7 @@
     padding: 0px;
     transition: height 0.3s ease-in-out;
     z-index: 999; 
+    border-radius: 15px !important;
   }
   
   .close-button {
@@ -55,3 +56,35 @@
     background-color: #ff0000; /* Change color on hover if desired */
   }
   
+  /* Media query for screens smaller than 768px */
+@media (max-width: 768px) {
+  .chatbot-button {
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px !important;
+    font-size: 14px;
+  }
+
+  .chatbot-content {
+    bottom: 10px;
+    right: 10px;
+    width: 90%;
+    height: 80%;
+    padding: 0px;
+    overflow-y: scroll;
+    transition: height 0.3s ease-in-out;
+    z-index: 999; 
+    border-radius: 15px
+  }
+
+
+  .close-button {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 30px;
+    height: 30px; 
+    font-size: 12px;
+  }
+}
