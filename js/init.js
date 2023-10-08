@@ -55,5 +55,8 @@ function Init_end() {
     var miElemento = document.getElementById("moonContainer");
     // Cambia el estilo del elemento
     miElemento.style.display = "block";
+    var miElemento = document.getElementById("chat");
+    // Cambia el estilo del elemento
+    miElemento.style.display = "block";
     
 }
