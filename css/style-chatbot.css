@@ -1,0 +1,57 @@
+
+  /* Add your desired styles here */
+  .hidden {
+    display: none;
+  }
+  
+  .chatbot-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* transition: height 0.3s ease-in-out; */
+    z-index: 999; 
+  }
+  
+  
+  .chatbot-content {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    width: 500px;
+    height: 700px;
+    padding: 0px;
+    transition: height 0.3s ease-in-out;
+    z-index: 999; 
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    z-index: 999; 
+  }
+  
+  .close-button:hover {
+    background-color: #ff0000; /* Change color on hover if desired */
+  }
+  
