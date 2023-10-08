@@ -22,6 +22,7 @@ function ambientLightOn() {
         if (ambientLight) {
             ambientLight.intensity=3.14;
         }
+        
 }
 
 function ambientLightOFF() {
@@ -36,31 +37,39 @@ function ambientLightOFF() {
 }
 //Fin
 
+
+function updateLandingSites(){
+    const labeLandingSites = moonContainer.querySelectorAll(".landingSite-container");
+    labeLandingSites.forEach(function(landingSite) {
+        id_landingSite=landingSite.getAttribute('data-info');
+        let landingSiteInfo = landingSitesData.find(item => item.id ===parseInt(id_landingSite));
+        if (dateSelected >= landingSiteInfo.date) {
+            landingSite.style.display = "block"; 
+            landingSite.addEventListener('mouseover', function() {
+                const landingSiteExtraInfo = landingSite.querySelectorAll('.landingSite-info');
+                landingSiteExtraInfo.forEach(function(element) {
+                    element.style.display = 'block';
+                });
+            });
+            // Add mouseout event listener
+            landingSite.addEventListener('mouseout', function() {
+                const landingSiteExtraInfo = landingSite.querySelectorAll('.landingSite-info');
+                landingSiteExtraInfo.forEach(function(element) {
+                    element.style.display = 'none';
+                });
+            }); 
+        }
+        else{
+            landingSite.style.display = "none"; 
+        }
+
+    });
+}
 function toggleLandingSites() {
     landingSitesVisible = !landingSitesVisible;
     if (landingSitesVisible) {
         toggle_landingSites.classList.add('on');
-        const labeLandingSites = moonContainer.querySelectorAll(".landingSite-container");
-        // Use forEach to change the style of each element
-        labeLandingSites.forEach(function(landingSite) {
-            landingSite.style.display = "block"; 
-            landingSite.addEventListener('mouseover', function() {
-                const landingSiteInfo = landingSite.querySelectorAll('.landingSite-info');
-                landingSiteInfo.forEach(function(element) {
-                    element.style.display = 'block';
-                });
-                
-            });
-        
-            // Add mouseout event listener
-            landingSite.addEventListener('mouseout', function() {
-                const landingSiteInfo = landingSite.querySelectorAll('.landingSite-info');
-                landingSiteInfo.forEach(function(element) {
-                    element.style.display = 'none';
-                });
-            }); 
-        });
-        
+        updateLandingSites();
     } else {
         const labeLandingSites = moonContainer.querySelectorAll(".landingSite-container");
         labeLandingSites.forEach(function(landingSite) {
@@ -138,14 +147,17 @@ function toggleMoonquakes() {
 }
 
 function togglelight() {
-    lightVisible = !lightVisible;
-    if (!lightVisible) {
+    if (lightVisible) {
         //!Check Is not a texture
-        ambientLightOn();
+        if (toggle_light.checked){
+            ambientLightOn();}
     } else {
         //!Check Add transition
-        ambientLightOFF();
+        if (!toggle_light.checked){
+            ambientLightOFF();}
+
     }
+    lightVisible = !lightVisible;
 }
 
 function cargar_textura(ruta){
@@ -203,3 +215,84 @@ toggle_moonquakes.addEventListener('click', toggleMoonquakes);
 toggle_topographic.addEventListener('click', toggleTopographic);
 toggle_light.addEventListener('click', togglelight);
 toggle_Geological.addEventListener('click', toggleGeological);
+
+
+const sliderYear = document.getElementById("rangeYear");
+const sliderMonth = document.getElementById("rangeMonth");
+const sliderDay = document.getElementById("rangeDay");
+
+const valueYear = document.getElementById("valueYear");
+const valueMonth = document.getElementById("valueMonth");
+const valueDay = document.getElementById("valueDay");
+
+function updateMaxDayValue() {
+  let selectedMonth = parseInt(sliderMonth.value, 10);
+  let maxDay;
+  // Calculate the maximum day based on the selected month
+  if ([4, 6, 9, 11].includes(selectedMonth)) {
+    // Months with 30 days
+    maxDay = 30;
+  } else if (selectedMonth === 2) {
+    // February (assuming non-leap year)
+    maxDay = 28;
+  } else {
+    // Months with 31 days
+    maxDay = 31;
+  }
+  if (parseInt(sliderDay.value, 10) > maxDay) {
+    sliderDay.value = maxDay.toString(); // Set the day value to the new maximum
+    valueDay.textContent=maxDay.toString();
+  }
+  sliderDay.max = maxDay.toString();
+
+  // Check if the current day value is greater than the new maximum
+
+}
+
+let dateSelected;
+// Function to update the displayed date and background color
+function updateSliders() {
+  let year = parseInt(sliderYear.value, 10) + 1969;
+  let month = parseInt(sliderMonth.value, 10).toString().padStart(2, '0');
+  let day = parseInt(sliderDay.value, 10).toString().padStart(2, '0');
+
+  valueYear.textContent = year;
+  valueMonth.textContent = month;
+  valueDay.textContent = day;
+
+
+  dateSelected = `${year}-${month}-${day}`;
+  console.log(dateSelected);
+  // Calculate the progress as a percentage for each slider
+  let progressYear = ((year - 1969) / (sliderYear.max - sliderYear.min)) * 100;
+  let progressMonth = ((month - 1) / (sliderMonth.max - sliderMonth.min)) * 100;
+  let progressDay = ((day - 1) / (sliderDay.max - sliderDay.min)) * 100;
+
+  // Set the background color with linear gradients for each slider
+  sliderYear.style.background = `linear-gradient(to right, rgb(99, 99, 238) ${progressYear}%, #ccc ${progressYear}%)`;
+  sliderMonth.style.background = `linear-gradient(to right, rgb(99, 99, 238) ${progressMonth}%, #ccc ${progressMonth}%)`;
+  sliderDay.style.background = `linear-gradient(to right, rgb(99, 99, 238) ${progressDay}%, #ccc ${progressDay}%)`;
+
+  if(landingSitesVisible){
+    updateLandingSites();
+  }
+}
+
+
+// Add event listeners to each slider
+sliderYear.addEventListener("input", () => {
+  updateSliders();
+  updateMaxDayValue(); // Update the maximum day value when the year changes
+});
+
+sliderMonth.addEventListener("input", () => {
+  updateSliders();
+  updateMaxDayValue(); // Update the maximum day value when the month changes
+});
+
+sliderDay.addEventListener("input", () => {
+  updateSliders();
+});
+
+// Call the function initially to set the initial displayed date and background color
+updateSliders();

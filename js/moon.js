@@ -15,7 +15,7 @@ function loadMoonquakesData() {
         .then((data) => {
             moonquakesData = data;
             moonquakesData.forEach((moonquake) => {
-                moonquake.type = 'moonquake'; // Modify as needed
+                moonquake.type = 'moonquake'; 
         });
             console.log("Moonquakes sites loaded");
         })
@@ -30,8 +30,11 @@ fetch('./moon_landings.json')
     .then((data) => {
         landingSitesData = data;
         // Add a new JSON call item to each object
+        i=0;
         landingSitesData.forEach((landingSite) => {
-            landingSite.type = 'landingSite'; // Modify as needed
+            landingSite.type = 'landingSite';
+            landingSite.id=i;
+            i=i+1;
         });
         console.log("Landing sites loaded with new items");
     })
@@ -51,11 +54,11 @@ function loadData(){
         const el = document.createElement('div');
         if(d.type=='landingSite'){
             el.innerHTML = `
-            <div class="landingSite-container" ;>
+            <div class="landingSite-container" data-info=${d.id} ;>
                 <div  display: inline-block; text-align: center;">
                     <b>${d.label}</b>
                     <div class="landingSite-info">${d.agency} - ${d.program} Program</div>
-                    <div class="landingSite-info">Landing on <i>${new Date(d.date).toLocaleDateString()}</i></div>
+                    <div class="landingSite-info">Landing on <i>${d.date}</i></div>
                 </div>
             </div>
 
