@@ -227,6 +227,7 @@ const valueDay = document.getElementById("valueDay");
 
 function updateMaxDayValue() {
   let selectedMonth = parseInt(sliderMonth.value, 10);
+  let selectedYear = parseInt(sliderYear.value, 10) + 1960;
   let maxDay;
   // Calculate the maximum day based on the selected month
   if ([4, 6, 9, 11].includes(selectedMonth)) {
@@ -234,7 +235,7 @@ function updateMaxDayValue() {
     maxDay = 30;
   } else if (selectedMonth === 2) {
     // February (assuming non-leap year)
-    maxDay = 28;
+    maxDay = (selectedYear % 4 === 0 && (selectedYear % 100 !== 0 || selectedYear % 400 === 0)) ? 29 : 28; // Check for leap year
   } else {
     // Months with 31 days
     maxDay = 31;
@@ -252,7 +253,7 @@ function updateMaxDayValue() {
 let dateSelected;
 // Function to update the displayed date and background color
 function updateSliders() {
-  let year = parseInt(sliderYear.value, 10) + 1969;
+  let year = parseInt(sliderYear.value, 10) + 1960;
   let month = parseInt(sliderMonth.value, 10).toString().padStart(2, '0');
   let day = parseInt(sliderDay.value, 10).toString().padStart(2, '0');
 
@@ -264,7 +265,7 @@ function updateSliders() {
   dateSelected = `${year}-${month}-${day}`;
   console.log(dateSelected);
   // Calculate the progress as a percentage for each slider
-  let progressYear = ((year - 1969) / (sliderYear.max - sliderYear.min)) * 100;
+  let progressYear = ((year - 1960) / (sliderYear.max - sliderYear.min)) * 100;
   let progressMonth = ((month - 1) / (sliderMonth.max - sliderMonth.min)) * 100;
   let progressDay = ((day - 1) / (sliderDay.max - sliderDay.min)) * 100;
 
