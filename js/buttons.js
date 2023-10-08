@@ -8,8 +8,10 @@ const toggle_topographic = document.getElementById('toggle_topographic');
 let topographicVisible=false;
 const toggle_Geological = document.getElementById('toggle_Geologicalmap');
 let GeologicalVisible=false;
-const toggle_temperature= document.getElementById('toggle_temperaturemap');
-let temperatureVisible=false;
+const toggle_temperatureMAX= document.getElementById('toggle_temperatureMAX');
+let temperatureVisibleMAX=false;
+const toggle_temperature= document.getElementById('toggle_temperatureMIN');
+let temperatureVisibleMIN=false;
 
 const colorScale = d3.scaleOrdinal(['orangered', 'mediumblue', 'darkgreen', 'yellow']);
 const labelsTopOrientation = new Set(['Apollo 12', 'Luna 2', 'Luna 20', 'Luna 21', 'Luna 24', 'LCROSS Probe']); // avoid label collisions
@@ -62,8 +64,10 @@ function toggleTopographic() {
         //Toggle everything else false
         toggle_Geological.checked=false;
         GeologicalVisible=false;
-        toggle_temperature.checked=false;
-        temperatureVisible=false;
+        toggle_temperatureMAX.checked=false;
+        temperatureVisibleMAX=false;
+        toggle_temperatureMIN.checked=false;
+        temperatureVisibleMIN=false;
 
         ambientLightOn();
 
@@ -98,8 +102,10 @@ function toggleGeological() {
         //Toggle everything else false
         toggle_topographic.checked=false;
         topographicVisible=false;
-        toggle_temperature.checked=false;
-        temperatureVisible=false;
+        toggle_temperatureMAX.checked=false;
+        temperatureVisibleMAX=false;
+        toggle_temperatureMIN.checked=false;
+        temperatureVisibleMIN=false;
 
         // Obtén el elemento por su ID
         var miElemento = document.getElementById("Information");
@@ -125,8 +131,8 @@ function toggleGeological() {
     GeologicalVisible = !GeologicalVisible;
 }
 
-function toggleTemperature() {
-    if (!temperatureVisible) {
+function toggleTemperatureMAX() {
+    if (!temperatureVisibleMAX) {
         cargar_textura('/resources/lunar_max_temperature.png');
         ambientLightOn();
 
@@ -134,7 +140,9 @@ function toggleTemperature() {
         toggle_topographic.checked=false;
         topographicVisible=false;
         toggle_Geological.checked=false;
-        GeologicalVisible=false;
+        GeologicalVisible=false;  
+        toggle_temperatureMIN.checked=false;
+        temperatureVisibleMIN=false;
 
         // Obtén el elemento por su ID
         var miElemento = document.getElementById("Information");
@@ -158,7 +166,45 @@ function toggleTemperature() {
         var miElemento = document.getElementById("Information");
         miElemento.innerHTML = "";
     }
-    temperatureVisible = !temperatureVisible;
+    temperatureVisibleMAX = !temperatureVisibleMAX;
+}
+
+function toggleTemperatureMIN() {
+    if (!temperatureVisibleMIN) {
+        cargar_textura('/resources/lunar_min_temperature.png');
+        ambientLightOn();
+
+        //Toggle everything else false
+        toggle_topographic.checked=false;
+        topographicVisible=false;
+        toggle_Geological.checked=false;
+        GeologicalVisible=false;
+        toggle_temperatureMAX.checked=false;
+        temperatureVisibleMAX=false;
+
+        // Obtén el elemento por su ID
+        var miElemento = document.getElementById("Information");
+        miElemento.innerHTML = '<iframe src="temperature_min_info.html" width="500" frameborder="0">';
+        // Agrego contenido al recuadro de info
+        // Obtén el elemento por su ID
+        var miElemento = document.querySelector(".scene-nav-infoo");
+        // Cambia el estilo del elemento
+        miElemento.style.display = "block";
+
+    } else {
+        //!Check Add transition
+        loadTexture();
+        ambientLightOFF();
+
+        // Obtén el elemento por su ID
+        var miElemento = document.querySelector(".scene-nav-infoo");
+        // Cambia el estilo del elemento
+        miElemento.style.display = "none";
+        // Obtén el elemento por su ID
+        var miElemento = document.getElementById("Information");
+        miElemento.innerHTML = "";
+    }
+    temperatureVisibleMIN = !temperatureVisibleMIN;
 }
 
 function updateLandingSites(){
@@ -233,7 +279,7 @@ function updateMoonquakes(){
                 var miElemento = document.querySelector(".scene-nav-infoo");
                 miElemento.style.display = "block";
             });
-            activeMoonquakes.push(moonquakeInfo)
+            activeMoonquakes.push(moonquakeInfo);
         }
         else{
             parent.style.display = "none"; 
@@ -303,7 +349,9 @@ toggle_moonquakes.addEventListener('click', toggleMoonquakes);
 toggle_topographic.addEventListener('click', toggleTopographic);
 toggle_light.addEventListener('click', togglelight);
 toggle_Geological.addEventListener('click', toggleGeological);
-toggle_temperature.addEventListener('click', toggleTemperature);
+toggle_temperatureMAX.addEventListener('click', toggleTemperatureMAX);
+toggle_temperatureMIN.addEventListener('click', toggleTemperatureMIN);
+
 
 const sliderYear = document.getElementById("rangeYear");
 const sliderMonth = document.getElementById("rangeMonth");
