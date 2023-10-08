@@ -157,7 +157,16 @@ input:checked + .slider:before {
 .landingSite-info{
   display: none;
   font-size: small;
-  z-index: 999;
+}
+
+.otherMissions-container{
+  display: none;
+  font-size: small;
+}
+
+.otherMissions-info{
+  display: none;
+  font-size: small;
 }
 
 body {

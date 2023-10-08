@@ -45,13 +45,31 @@ fetch('./moon_landings.json')
         console.error('Error loading landing site data:', error);
     });
 }
-
+function loadotherMisions() {
+    fetch('./otras_misiones.json')
+        .then((response) => response.json())
+        .then((data) => {
+            otherMissionsData = data;
+            // Add a new JSON call item to each object
+            i=0;
+            otherMissionsData.forEach((mission) => {
+                mission.type = 'otherMissions';
+                mission.id=i;
+                i=i+1;
+            });
+            console.log("Landing sites loaded with new items");
+        })
+        .catch((error) => {
+            console.error('Error loading landing site data:', error);
+        });
+    }
 
 function loadData(){
     loadLandingSitesData();
     loadMoonquakesData();
+    loadotherMisions();
     setTimeout(() => {
-        const data = [landingSitesData, moonquakesData];
+        const data = [landingSitesData, moonquakesData, otherMissionsData];
         const dataFlatten = [].concat(...data);
         moon.htmlElement(d => {
         const el = document.createElement('div');
@@ -88,6 +106,19 @@ function loadData(){
             `;
             el.style['pointer-events'] = 'auto';
             el.style.cursor = 'pointer';
+        }
+        if(d.type=='otherMissions'){
+            el.innerHTML = `
+            <div class="otherMissions-container" data-info=${d.id} ;>
+            <div  display: inline-block; text-align: center;">
+                <b>${d.name}</b>
+                <div class="otherMissions-info">${d.agency} - ${d.program} Program</div>
+                <div class="otherMissions-info">Landing on <i>${d.date}</i></div>
+            </div>
+        </div>
+            `;
+            el.style['pointer-events'] = 'auto';
+            el.style.cursor = 'pointer'
         }        
         return el;
     });
@@ -181,6 +212,7 @@ const moon = Globe()
 
 let landingSitesData=[];
 let moonquakesData=[];
+let otherMissionsData=[];
 const data=[];
 loadData();
 // Call the setupScene function to initialize your scene

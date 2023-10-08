@@ -2,6 +2,8 @@ const toggle_landingSites = document.getElementById('toggle_landingSites');
 let landingSitesVisible = false;
 const toggle_moonquakes = document.getElementById('toggle_moonquakes');
 let moonquakesVisible = false;
+const toggle_otherMission = document.getElementById('toggle_misions');
+let otherMissionsVisible = false;
 const toggle_light = document.getElementById('toggle_light');
 let lightVisible=true;
 const toggle_topographic = document.getElementById('toggle_topographic');
@@ -304,6 +306,50 @@ function toggleMoonquakes() {
         
     }
 }
+function toggleOtherMissions() {
+    otherMissionsVisible = !otherMissionsVisible;
+    if (otherMissionsVisible) {
+        
+        const otherMissions = moonContainer.querySelectorAll(".otherMissions-container");
+        console.log(otherMissions);
+        otherMissions.forEach(function(mission) {
+            let id_mission=mission.getAttribute('data-info');
+            let missionData = otherMissionsData.find(item => item.id ===parseInt(id_mission));
+            mission.style.display = "block"; 
+
+            mission.addEventListener('mouseover', function() {
+            const missionInfo = mission.querySelectorAll('.otherMissions-info');
+            missionInfo.forEach(function(element) {
+                element.style.display = 'block';
+            });
+
+            mission.addEventListener('mouseout', function() {
+                const missionInfo = mission.querySelectorAll('.otherMissions-info');
+                missionInfo.forEach(function(element) {
+                    element.style.display = 'none';
+                });
+            }); 
+
+            mission.addEventListener('click', function() {
+                console.log(missionInfo);
+                var miElemento = document.getElementById("Information");
+                miElemento.innerHTML = '<iframe src="/Informacion.html?Titulo='+missionData.name+'-'+missionData.agency+'&Texto='+missionData.info+'&image='+missionData.image+'" frameborder="0" width="400" height="550"> </iframe>';
+                var miElemento = document.querySelector(".scene-nav-infoo");
+                miElemento.style.display = "block";
+            });
+        });
+        });
+        
+    } else {
+        const otherMissions = moonContainer.querySelectorAll(".otherMissions-container");
+        otherMissions.forEach(function(mission) {
+            mission.style.display = "none"; 
+        });
+        var miElemento = document.querySelector(".scene-nav-infoo");
+        miElemento.style.display = "none";
+    }
+
+}
 
 function togglelight() {
     if (lightVisible) {
@@ -346,6 +392,7 @@ function cargar_textura(ruta){
 //Listen for toggles buttons 
 toggle_landingSites.addEventListener('click', toggleLandingSites);
 toggle_moonquakes.addEventListener('click', toggleMoonquakes);
+toggle_otherMission.addEventListener('click', toggleOtherMissions);
 toggle_topographic.addEventListener('click', toggleTopographic);
 toggle_light.addEventListener('click', togglelight);
 toggle_Geological.addEventListener('click', toggleGeological);
