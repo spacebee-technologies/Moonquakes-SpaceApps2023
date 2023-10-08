@@ -103,7 +103,7 @@ function toggleGeological() {
 
         // Obtén el elemento por su ID
         var miElemento = document.getElementById("Information");
-        miElemento.innerHTML = '<iframe src="/Geologic_SCALE.html" frameborder="0" width="400" height="550"> </iframe>';
+        miElemento.innerHTML = '<iframe class="nav-info-iframe" src="/Geologic_SCALE.html" frameborder="0"> </iframe>';
         // Agrego contenido al recuadro de info
         // Obtén el elemento por su ID
         var miElemento = document.querySelector(".scene-nav-infoo");
@@ -164,7 +164,7 @@ function toggleTemperature() {
 function updateLandingSites(){
     const labeLandingSites = moonContainer.querySelectorAll(".landingSite-container");
     labeLandingSites.forEach(function(landingSite) {
-        id_landingSite=landingSite.getAttribute('data-info');
+        let id_landingSite=landingSite.getAttribute('data-info');
         let landingSiteInfo = landingSitesData.find(item => item.id ===parseInt(id_landingSite));
         if (dateSelected >= landingSiteInfo.date) {
             landingSite.style.display = "block"; 
@@ -204,54 +204,56 @@ function toggleLandingSites() {
 
 }
 
-function toggleMoonquakes() {
-    moonquakesVisible = !moonquakesVisible;
-    if (moonquakesVisible) {
-        toggle_moonquakes.classList.add('on');
-        const moonquakeParents = moonContainer.querySelectorAll(".moonquake-parent");
-        moonquakeParents.forEach(function(parent) {
-            parent.style.display = "block";
+function updateMoonquakes(){
+    const moonquakeParents = moonContainer.querySelectorAll(".moonquake-parent");
+    console.log(moonquakeParents);
+    moonquakeParents.forEach(function(parent) {
+        let id_moonquake=parent.getAttribute('data-info');
+        let moonquakeInfo = moonquakesData.find(item => item.id ===parseInt(id_moonquake));
+        if (true) {
+            parent.style.display = "block"; 
+
             parent.addEventListener('mouseover', function() {
                 const moonquakeElement = parent.querySelector('.moonquake-element');
                 const exclamation = parent.querySelector('.exclamation');
-        
                 moonquakeElement.style.display = 'block';
                 exclamation.style.display = 'none';
             });
-            parent.addEventListener('click', function() {
-                let infoStr = parent.getAttribute('data-info');
-                const infoJson = JSON.parse(infoStr.replace(/\/-!/g, ' '));
-                var miElemento = document.getElementById("Information");
-                miElemento.innerHTML = '<iframe src="/Informacion.html?Titulo='+infoJson.name+'-'+infoJson.mission+'&Texto='+infoJson.Info+'&image='+infoJson.Image+'" frameborder="0" width="400" height="550"> </iframe>';
-                // Agrego contenido al recuadro de info
-                // Obtén el elemento por su ID
-                var miElemento = document.querySelector(".scene-nav-infoo");
-                // Cambia el estilo del elemento
-                miElemento.style.display = "block";
-            });
-            // Add mouseout event listener
             parent.addEventListener('mouseout', function() {
                 const moonquakeElement = parent.querySelector('.moonquake-element');
                 const exclamation = parent.querySelector('.exclamation');
-        
                 moonquakeElement.style.display = 'none';
                 exclamation.style.display = 'block';
             }); 
-        });
-        const exlamationsMark = moonContainer.querySelectorAll(".exclamation");
-        exlamationsMark.forEach(function(exclamation) {
-            exclamation.style.display = "block"; 
-        });
+
+            parent.addEventListener('click', function() {
+                var miElemento = document.getElementById("Information");
+                miElemento.innerHTML = '<iframe src="/Informacion.html?Titulo='+moonquakeInfo.name+'-'+moonquakeInfo.mission+'&Texto='+moonquakeInfo.Info+'&image='+moonquakeInfo.Image+'" frameborder="0" width="400" height="550"> </iframe>';
+                var miElemento = document.querySelector(".scene-nav-infoo");
+                miElemento.style.display = "block";
+            });
+
+        }
+        else{
+            moonquakeParent.style.display = "none"; 
+        }
+
+    });
+}
+
+function toggleMoonquakes() {
+    moonquakesVisible = !moonquakesVisible;
+    if (moonquakesVisible) {
+        updateMoonquakes();
         moon.ringMaxRadius(2);
+        moon.ringColor(() => '#ed5d40');
         moon.ringsData(moonquakesData);
     } else {
-        toggle_moonquakes.classList.remove('on');
-        const moonquakeElements = document.querySelectorAll('.moonquake-element, .exclamation');
-        moonquakeElements.forEach(el => el.style.display = "none");
+        const moonquakeParents = moonContainer.querySelectorAll(".moonquake-parent");
+        moonquakeParents.forEach(el => el.style.display = "none");
         moon.ringMaxRadius(0);
-        // var miElemento = document.querySelector(".scene-nav-infoo");
-        // // Cambia el estilo del elemento
-        // miElemento.style.display = "none";
+        var miElemento = document.querySelector(".scene-nav-infoo");
+        miElemento.style.display = "none";
         
     }
 }
@@ -360,6 +362,9 @@ function updateSliders() {
 
   if(landingSitesVisible){
     updateLandingSites();
+  }
+  if (moonquakesVisible){
+    updateMoonquakes();
   }
 }
 

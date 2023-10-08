@@ -143,9 +143,7 @@ input:checked + .slider:before {
 /* Center the moonquake-element using Flexbox */
 .moonquake-parent {
   display: none;
-  justify-content: center;
-  align-items: center;
-  text-align: center; /* Center-align text within moonquake-parent */
+/* Center-align text within moonquake-parent */
 }
 .moonquake-element {
   display: None;

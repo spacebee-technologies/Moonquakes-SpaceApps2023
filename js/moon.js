@@ -14,8 +14,11 @@ function loadMoonquakesData() {
         .then((response) => response.json())
         .then((data) => {
             moonquakesData = data;
+            i=0;
             moonquakesData.forEach((moonquake) => {
                 moonquake.type = 'moonquake'; 
+                moonquake.id=i;
+                i=i+1;
         });
             console.log("Moonquakes sites loaded");
         })
@@ -67,18 +70,18 @@ function loadData(){
             el.style['pointer-events'] = 'auto';
             el.style.cursor = 'pointer';
         }
-        else{
-              // Escape and stringify the JSON data
-              const jsonString = JSON.stringify(d).replace(/ /g, '/-!');
+        if(d.type=='moonquake'){
             el.innerHTML = `
-            <div class="moonquake-parent"  data-info=${jsonString}>
-                <i class="fas fa-exclamation exclamation"></i>
-                <div class="moonquake-element hover-effect">
-                    <p style="font-size: 10pt; text-align: center;">
-                        <b>${d.name}</b><br>
-                        ${d.mission}
-                        <br>
-                    </p>
+            <div class="moonquake-parent"  data-info=${d.id}>
+             <div  display: inline-block; text-align: center;">
+                    <i class="fas fa-exclamation exclamation" style="color: #ff4013;"></i>
+                    <div class="moonquake-element hover-effect">
+                        <p style="font-size: 10pt; text-align: center;">
+                            <b>${d.name}</b><br>
+                            ${d.mission}
+                            <br>
+                        </p>
+                    </div>
                 </div>
             </div>
             `;
