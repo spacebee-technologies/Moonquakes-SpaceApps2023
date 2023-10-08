@@ -107,6 +107,7 @@ element.style {
   left: 0;
   right: 0;
   bottom: 0;
+  width: auto;
   background-color: #ccc;
   -webkit-transition: .4s;
   transition: .4s;
@@ -116,7 +117,7 @@ element.style {
   position: absolute;
   content: "";
   height: 15px;
-  width: 26px;
+  width: 50%;
   left: 4px;
   bottom: 4px;
   background-color: white;
@@ -133,9 +134,9 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(80%);
 }
 
 
