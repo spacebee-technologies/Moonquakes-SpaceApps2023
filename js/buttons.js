@@ -276,7 +276,7 @@ function updateMoonquakes(){
 
             parent.addEventListener('click', function() {
                 var miElemento = document.getElementById("Information");
-                miElemento.innerHTML = '<iframe class="nav-info-iframe" src="/info/informationMoonquake.html?Titulo='+moonquakeInfo.name+'-'+moonquakeInfo.mission+'&type='+moonquakeInfo.info+'&Texto='+moonquakeInfo.description+'&image='+moonquakeInfo.Image+'" frameborder="0" width="400" height="550"> </iframe>';
+                miElemento.innerHTML = '<iframe class="nav-info-iframe" src="info/informationMoonquake.html?Titulo='+moonquakeInfo.name+'-'+moonquakeInfo.mission+'&type='+moonquakeInfo.Info+'&Texto='+moonquakeInfo.description+'&image='+moonquakeInfo.Image+'" frameborder="0" width="400" height="550"> </iframe>';
                 var miElemento = document.querySelector(".scene-nav-infoo");
                 miElemento.style.display = "block";
             });
