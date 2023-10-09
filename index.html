@@ -25,16 +25,17 @@
     <div class="intro-screen">
         <div class="intro-text">
             <div class="intro-heading">
-                <h1>Moonquake 3D</h1>
+                <h3>Discover the Moon!</h3>
             </div>
+            <br>
             <div class="inner">
                 
-                <p>This is a project powered by <a href="http://globe.gl/" target="_blank">Globe.gl</a> and <a href="http://threejs.org/" target="_blank">Three.js</a>. All objects within this project have been modeled to <span data-tooltip aria-haspopup="true" class="has-tip" data-disable-hover="false" tabindex="1" title="Scale = 1 * 10^-4.2">scale</span> based on real astronomical data. The scene currently represents the sun, the earth, the moon and the Moonquake. </p>
+                <p>Welcome to our Lunar Data Visualization "Aónikenk" Web App, a gateway to information collected during the historic Apollo missions. Dive into the fascinating world of lunar exploration as you explore data from seismometers, precise landing site data, and comprehensive mission details. Join us on a virtual journey to the Moon and uncover the mysteries of the cosmos!</p>
                 <p>
-                    <strong>For a better viewing experience, use a laptop or desktop with the latest version of Google Chrome or Safari Technology Preview.</strong>
+                    <!--<strong>For a better viewing experience, use a laptop or desktop with the latest version of Google Chrome or Safari Technology Preview.</strong>-->
                 </p>
                 <!-- <p><center><img src="Spacebee_logo.png" alt="Spacebee" width="300"  height="341"/></center></p> -->
-                
+                <br>
                 <div id="render-scene" class="button large render-scene" onclick="Init()">
                     <span>View Moonquake 3D</span>
                 </div>
@@ -133,7 +134,7 @@
                     </li>
                     <li class="accordion-item">
                         <div class="toggle-container">
-                            <p>Maximum Temperature map </p>
+                            <p>Max Temperature map </p>
                             <label class="switch">
                             <input id="toggle_temperatureMAX" type="checkbox">
                             <span class="slider"></span>
@@ -142,7 +143,7 @@
                     </li>
                     <li class="accordion-item">
                         <div class="toggle-container">
-                            <p>Minimum Temperature map </p>
+                            <p>Min Temperature map </p>
                             <label class="switch">
                             <input id="toggle_temperatureMIN" type="checkbox">
                             <span class="slider"></span>
@@ -162,6 +163,20 @@
                             <span class="slider"></span>
                             </label>
                         </div>
+                    </li>
+                    <li class="accordion-item">
+                        <div style="text-align: center; font-size: 15px; margin-bottom: -25px;">Rotation moon/sun</div>
+                        <div class="range">
+                            <input type="range" min="0" max="360" value="0" id="rangeRotation" />
+                            <div  style="font-size: 12px;" id="valueRotation">0</div>°
+                          </div>
+                    </li>
+                    <li class="accordion-item">
+                        <div style="text-align: center; font-size: 15px; margin-bottom: -25px;">Velocity Rotation</div>
+                        <div class="range">
+                            <input type="range" min="0" max="2000" value="0" id="rangeVelocidad" />
+                            <div  style="font-size: 12px;" id="valueVelocidad">0</div>
+                          </div>
                     </li>
                   </ul>
             </li>
@@ -203,7 +218,10 @@
       </div>
 
 <!--   TITULO EN ESCENA  -->
-    <div class="scene-title" style="display: none;">Moon Exploration</div>
+<div class="scene-title" style="display: none;">Moon Exploration</div>
+
+<!--   Info en pie  -->
+<div class="scene-infopie" style="display: block;">Hola</div>
 
 <!--   Caja de Informacion-->
 <div class="scene-nav-infoo" style="filter:alpha(opacity=100); opacity:1; display: block;">
@@ -214,18 +232,20 @@
 </div>
 
 <!--   Escena MOON  -->
-    <div id="moonContainer" style="display: none;">
-    </div>
-    <!--   chatBot -->
+<div id="moonContainer" style="display: none;">
+</div>
+
+<!--   chatBot -->
 <div id="chat" style="display: none">
     <div class="chatbot-button" id="chatbotButton">
         <i class="fas fa-robot fa-2x"></i>
     </div>
     <div id="chatbotContent" class="chatbot-content hidden">
-        <iframe src="https://interfaces.zapier.com/embed/page/clndbdfkm374250ojriidue44r?" style='max-width: 500px; width: 100%; height: 100%;border-radius: 15px;'></iframe>
+        <iframe src="https://interfaces.zapier.com/embed/page/clndbdfkm374250ojriidue44r?" style='max-width: 500px; width: 100%; height: 100%;'></iframe>
         <i id="closeChatbot" class="fas fa-times-circle fa-2x close-button"></i>
     </div>
 </div>
+
 <!--   Imagen cargando -->
 <div id="cargando" name="cargando" class="cargando" style="position: absolute; top: 35%; left: 43.5%; display: none;"><img class="spin" src="resources/img/Cargando.gif" width="200" height="100"></div>
 

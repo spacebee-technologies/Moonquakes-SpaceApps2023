@@ -18,6 +18,36 @@ let temperatureVisibleMIN=false;
 const colorScale = d3.scaleOrdinal(['orangered', 'mediumblue', 'darkgreen', 'yellow']);
 const labelsTopOrientation = new Set(['Apollo 12', 'Luna 2', 'Luna 20', 'Luna 21', 'Luna 24', 'LCROSS Probe']); // avoid label collisions
 
+let texto_info_pie=""
+let contador_blink=0;
+
+// Definir la función que se ejecutará cada x tiempo
+function infotext_blink() {
+    if(texto_info_pie!=""){
+        var miElemento = document.querySelector(".scene-infopie");
+        miElemento.innerHTML = texto_info_pie;
+        if (contador_blink<=6){
+            if(miElemento.style.display == "none"){
+                miElemento.style.display = "block";
+            }else{
+                miElemento.style.display = "none";
+            }
+            contador_blink=contador_blink+1;
+        }else{
+            miElemento.style.display = "block";
+        }
+        
+        
+    }else{
+        var miElemento = document.querySelector(".scene-infopie");
+        miElemento.style.display = "none";
+    }
+}
+
+// Configurar setInterval para llamar a la función cada 1000 milisegundos (1 segundo)
+var intervalo = setInterval(infotext_blink, 1000);
+
+
 //Funciones que vienen de moon.js. En version futura se deberia llamar a dichas funciones en lugar de colocarlas aca.
 function ambientLightOn() {
     const directionalLight = moon.scene().children.find(obj3d => obj3d.type === 'DirectionalLight');
@@ -242,12 +272,14 @@ function toggleLandingSites() {
     if (landingSitesVisible) {
         toggle_landingSites.classList.add('on');
         updateLandingSites();
+        texto_info_pie = "Move the timeline and press a point on the map";
     } else {
         const labeLandingSites = moonContainer.querySelectorAll(".landingSite-container");
         labeLandingSites.forEach(function(landingSite) {
             landingSite.style.display = "none"; 
         });
         toggle_landingSites.classList.remove('on');
+        texto_info_pie = "";
     }
 
 }
@@ -295,13 +327,14 @@ function toggleMoonquakes() {
         updateMoonquakes();
         moon.ringMaxRadius(2);
         moon.ringColor(() => '#ed5d40');
+        texto_info_pie = "Move the timeline and press a point on the map";
     } else {
         const moonquakeParents = moonContainer.querySelectorAll(".moonquake-parent");
         moonquakeParents.forEach(el => el.style.display = "none");
         moon.ringMaxRadius(0);
         var miElemento = document.querySelector(".scene-nav-infoo");
         miElemento.style.display = "none";
-        
+        texto_info_pie = "";
     }
 }
 function toggleOtherMissions() {
@@ -404,6 +437,7 @@ const valueYear = document.getElementById("valueYear");
 const valueMonth = document.getElementById("valueMonth");
 const valueDay = document.getElementById("valueDay");
 
+
 function updateMaxDayValue() {
   let selectedMonth = parseInt(sliderMonth.value, 10);
   let selectedYear = parseInt(sliderYear.value, 10) + 1960;
@@ -459,7 +493,6 @@ function updateSliders() {
     updateMoonquakes();
   }
 }
-
 
 // Add event listeners to each slider
 sliderYear.addEventListener("input", () => {
