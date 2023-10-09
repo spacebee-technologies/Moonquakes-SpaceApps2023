@@ -184,7 +184,7 @@ if(isset($_POST["submit"])){
     <div class="container form-container">
         <form id="myForm" name="myForm" action="" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="name">Nombre de mision:</label>
+                <label for="name">Name of mision:</label>
                 <input type="text" class="form-control" id="name" name="name" required>
             </div>
             <div class="form-group">
