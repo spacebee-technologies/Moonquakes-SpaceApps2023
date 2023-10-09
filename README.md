@@ -22,3 +22,4 @@ Other features include:
 ![image](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/70104934/73b792cb-6243-4aef-96d0-0911b45431e0)
 ![image](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/70104934/f2f1f86a-62bf-4a07-b579-f8e66611252c)
 ![image](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/70104934/9003e54c-9275-4aed-8834-37a3967406e5)
+![HIRO](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/70104934/8d4be661-4c33-4293-b996-da8cb0a65089)
