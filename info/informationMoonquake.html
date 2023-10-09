@@ -35,6 +35,24 @@
       var Titulo = params.get('Titulo');
       var Texto = params.get('Texto');
       var image = params.get('image');
+      var type= params.get('type');
+
+      switch (type) {
+        case "Deep moonquake":
+          
+          break;
+        case "Shallow moonquake":
+        
+        break;
+        case  "Natural impact":
+        
+        break;
+        case  "Natural impact":
+        
+        break;
+        default:
+          break;
+      }
 
       var miElemento = document.getElementById("title");
       miElemento.innerHTML = '<h1>'+ Titulo +'</h1>';
@@ -44,21 +62,6 @@
       miElemento.innerHTML = '<p>'+ Texto +'</p>';
       //console.log(Texto);
 		}
-
-    function moonQuake(){
-      let params = new URLSearchParams(location.search);
-      var Titulo = params.get('Titulo');
-      var Texto = params.get('Texto');
-      var image = params.get('image');
-
-      var miElemento = document.getElementById("title");
-      miElemento.innerHTML = '<h1>'+ Titulo +'</h1>';
-      var miElemento = document.getElementById("image");
-      miElemento.innerHTML = '<img src="resources/'+ image +'" width="300" height="200">';
-      var miElemento = document.getElementById("texto");
-      miElemento.innerHTML = '<p>'+ Texto +'</p>';
-
-    }
 		</script>
     <style>
       body{
