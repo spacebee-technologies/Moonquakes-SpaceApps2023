@@ -1,3 +1,38 @@
+let angle = 0;
+
+function inc_angulo() {
+    angle++;
+    if(angle>=361){
+        angle=0;
+    }
+}
+
+// ms
+var intervalo = setInterval(inc_angulo, 50);
+let vel_rps = 1/(50*360);
+
+const sliderVelocidad = document.getElementById("rangeVelocidad");
+const valueVelocidad = document.getElementById("valueVelocidad");
+let progressVelocidad = ((parseInt(vel_rps) - 1) / (sliderVelocidad.max - sliderVelocidad.min)) * 100;
+
+sliderVelocidad.addEventListener("input", () => {
+    let Velocidad = sliderVelocidad.value;
+    valueVelocidad.textContent=parseInt(Velocidad);
+    clearInterval(intervalo);
+    if(Velocidad <= 0){
+    }else{
+        let Vel_in_Rpms =360/(Velocidad * 1);
+        intervalo = setInterval(inc_angulo, parseInt(Vel_in_Rpms));
+    }
+    
+    let progressVelocidad = ((Velocidad - 1) / (sliderVelocidad.max - sliderVelocidad.min)) * 100;
+    sliderVelocidad.style.background = `linear-gradient(to right, rgb(99, 99, 238) ${progressVelocidad}%, #ccc ${progressVelocidad}%)`;
+});
+
+
+sliderVelocidad.style.background = `linear-gradient(to right, rgb(99, 99, 238) ${progressVelocidad}%, #ccc ${progressVelocidad}%)`;
+valueVelocidad.textContent=parseInt(vel_rps);
+
 function updateGlobeSize() {
     // Function to update the globe size and projection on resize
     const elem = document.getElementById('moonContainer');
@@ -150,6 +185,7 @@ function ambientLightOFF() {
             directionalLight.intensity=2;
         }
 }
+
 function dayCycle(orbitSpeed) {
     setTimeout(() => {
         // Wait for the scene to be populated (asynchronously)
@@ -170,16 +206,22 @@ function dayCycle(orbitSpeed) {
         const directionalLight = moon.scene().children.find(obj3d => obj3d.type === 'DirectionalLight');
         if (directionalLight) {
         // Adjust the orbit speed as needed
-        const orbitSpeed = 0.00005;
+        //const orbitSpeed = 0.00005;
 
         // Update the position of the directional light to follow the orbit path
-        const currentTime = Date.now();
-        const angle = (currentTime * orbitSpeed) % (Math.PI * 2); // Calculate the angle based on time
-        const x = orbitRadius * Math.cos(angle);
-        const z = orbitRadius * Math.sin(angle);
+        //const currentTime = Date.now();
+        //angle = (currentTime * orbitSpeed) % (Math.PI * 2); // Calculate the angle based on time
+        //console.log(angle)
+        const angle_rad=angle/57.2958;
+        const x = orbitRadius * Math.cos(angle_rad);
+        const z = orbitRadius * Math.sin(angle_rad);
         directionalLight.position.set(x, 1, z);
+        valueRotation.textContent=parseInt(angle);
+        let progressRotation = ((parseInt(angle) - 1) / (sliderRotation.max - sliderRotation.min)) * 100;
+        sliderRotation.style.background = `linear-gradient(to right, rgb(99, 99, 238) ${progressRotation}%, #ccc ${progressRotation}%)`;
+        sliderRotation.value=parseInt(angle);
         }
-
+        
         // Request the next animation frame
         requestAnimationFrame(orbitDirectionalLight);
     }
@@ -207,6 +249,20 @@ const moon = Globe()
     (moonContainer);
 
 
+const sliderRotation = document.getElementById("rangeRotation");
+const valueRotation = document.getElementById("valueRotation");
+
+sliderRotation.addEventListener("input", () => {
+    updateRotation();
+});
+
+// Function to update Rotation
+function updateRotation() {
+    let Rotation = sliderRotation.value;
+    let progressRotation = ((Rotation - 1) / (sliderRotation.max - sliderRotation.min)) * 100;
+    sliderRotation.style.background = `linear-gradient(to right, rgb(99, 99, 238) ${progressRotation}%, #ccc ${progressRotation}%)`;
+    angle = Rotation;
+}
 
 //Load data to variables
 
