@@ -362,7 +362,7 @@ function toggleOtherMissions() {
 
             mission.addEventListener('click', function() {
                 var miElemento = document.getElementById("Information");
-                miElemento.innerHTML = '<iframe class="nav-info-iframe" src="/info/Informacion.html?Titulo='+missionData.name+'-'+missionData.agency+'&Texto='+missionData.info+'&image='+missionData.image+'" frameborder="0" width="400" height="550"> </iframe>';
+                miElemento.innerHTML = '<iframe class="nav-info-iframe" src="/info/InformacionOM.html?Titulo='+missionData.name+'-'+missionData.agency+'&Texto='+missionData.info+'&image='+missionData.image+'" frameborder="0" width="400" height="550"> </iframe>';
                 var miElemento = document.querySelector(".scene-nav-infoo");
                 miElemento.style.display = "block";
             });

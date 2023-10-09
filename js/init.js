@@ -33,8 +33,8 @@ function Init() {
                 clearInterval(temporizador);
                 Init_end();
             }
-        }, 0); // Intervalo de tiempo en milisegundos (puedes ajustar este valor)   300
-    }, 0); // Tiempo de la transición en milisegundos (ajusta según sea necesario) 800
+        }, 300); // Intervalo de tiempo en milisegundos (puedes ajustar este valor)   300
+    }, 800); // Tiempo de la transición en milisegundos (ajusta según sea necesario) 800
 
 }
 
