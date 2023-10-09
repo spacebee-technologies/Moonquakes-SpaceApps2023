@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<head>
+		<title>Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" >
+
+		<script>
+    function empezarAudio() {
+      let params = new URLSearchParams(location.search);
+      var Titulo = params.get('Titulo');
+      var Texto = params.get('Texto');
+      var image = params.get('image');
+      // Crear un nuevo objeto SpeechSynthesisUtterance con el texto deseado
+      utterance = new SpeechSynthesisUtterance(Texto);
+
+      // Configurar otras opciones si es necesario (idioma, velocidad, voz, etc.)
+      utterance.lang = 'es';
+      utterance.rate = 0.8;
+      utterance.onerror = function(event) {
+          console.error('Error al hablar:', event);
+      };
+      // Iniciar la síntesis de voz
+      window.speechSynthesis.speak(utterance);
+    }
+    
+    function pararAudio() {
+      // Detener la síntesis de voz
+      window.speechSynthesis.cancel();
+    }
+    
+		function miFuncion() {
+      let params = new URLSearchParams(location.search);
+      var Titulo = params.get('Titulo');
+      var Texto = params.get('Texto');
+      var image = params.get('image');
+
+      var miElemento = document.getElementById("title");
+      miElemento.innerHTML = '<h1>'+ Titulo +'</h1>';
+      var miElemento = document.getElementById("image");
+      miElemento.innerHTML = '<img src="resources/'+ image +'" width="300" height="200">';
+      var miElemento = document.getElementById("texto");
+      miElemento.innerHTML = '<p>'+ Texto +'</p>';
+      //console.log(Texto);
+		}
+
+    function moonQuake(){
+      let params = new URLSearchParams(location.search);
+      var Titulo = params.get('Titulo');
+      var Texto = params.get('Texto');
+      var image = params.get('image');
+
+      var miElemento = document.getElementById("title");
+      miElemento.innerHTML = '<h1>'+ Titulo +'</h1>';
+      var miElemento = document.getElementById("image");
+      miElemento.innerHTML = '<img src="resources/'+ image +'" width="300" height="200">';
+      var miElemento = document.getElementById("texto");
+      miElemento.innerHTML = '<p>'+ Texto +'</p>';
+
+    }
+		</script>
+    <style>
+      body{
+          color: white;
+          background: transparent;
+      }
+      body::-webkit-scrollbar {
+        width: 12px;               /* width of the entire scrollbar */
+      }
+      
+      body::-webkit-scrollbar-track {
+        background: rgb(0, 0, 0);        /* color of the tracking area */
+      }
+      
+      body::-webkit-scrollbar-thumb {
+        background-color: rgb(255, 255, 255);    /* color of the scroll thumb */
+        border-radius: 20px;       /* roundness of the scroll thumb */
+        border: 3px solid rgb(0, 0, 0);  /* creates padding around scroll thumb */
+      } 
+      
+      button {
+      padding: 2px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    /* Estilos adicionales para los botones */
+    .empezar {
+      color: green;
+    }
+
+    .parar {
+      color: red;
+    }
+  </style>
+	</head>
+	<body onload="miFuncion();">
+    <button class="empezar" onclick="empezarAudio()"><i class="fas fa-play"></i> Start Audio</button>
+    <button class="parar" onclick="pararAudio()"><i class="fas fa-stop"></i> Stop Audio</button>
+		<div id="title" name="title"></div>
+    </br>
+    <div id="image" name="image"></div>
+    </br>
+    <div id="texto" name="texto"></div>
+    <br>
+	</body>
+</html>
+
