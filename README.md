@@ -3,20 +3,23 @@ A moonquake, also known as a selenotremor, refers to an earthquake or tremor on 
 
 The Apollo Lunar Surface Experiment Package (ALSEP) was a set of geophysical instruments designed to monitor the lunar environment after astronauts left each Apollo landing site, with an intended lifespan of one year (two for Apollo 17). These instruments continued to function for up to 8 years until Mission Control shut them down on September 30, 1977. The first Apollo mission, Apollo 11, had a simpler version called the Early Apollo Surface Experiments Package (EASEP), featuring only two experiments.
 
+# Objective
+Your challenge is to develop an app for the public that plots the seismic events detected by the EASEP and ALSEP instruments on an interactive 3-D digital moon globe. How will you visualize this data? Will the seismic events appear as pins or flashing objects in the locations specified in the data files? Seismic events cause ringing—you could visualize them as concentric torus shapes or circles. Will you develop images within a project web page, pop-up boxes on a digital lunar globe, a display on an interactive 3-D virtual model embedded in a web page, or a virtual reality experience set on the lunar surface where seismic events shake the camera’s point-of-view? Will you add topography or day/night cycles? Be creative!
+
 # Aónikenk Lunar Data Visualizer
 
 This repo contains:
 - A web app for scientific lunar data visualization (seismographic information, topographic and geological maps and more!)
-- A tool to generate a web app code from a subset of data of the ALSEP (Apollo Lunar Surface Experiment Package)
-- A tool to generate a web app code from a subset of data of the ALSEP (Apollo Lunar Surface Experiment Package)
+- A tool to generate the web app code from a subset of data of the ALSEP (Apollo Lunar Surface Experiment Package)
+- A tool to generate a web app to visualize a 3D environment developed in Unity.
 
 # Web application
-![immagine](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/54816650/0ed97bbb-eed2-46e9-a99b-a6288b674c58)
-
 The application offers the following geographical views of the moon:
 - Topographic
 - Geological
 - Temperature maps
+- 
+![immagine](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/54816650/0ed97bbb-eed2-46e9-a99b-a6288b674c58)
 
 In addition, it provides moonquakes and lunar missions information, including moonquake locations, type of moonquake, date and data plots based on ALSEP Apollo experiments data. It also provides information about mission landing sites and even an integrated chatbot for additional consulting.
 
