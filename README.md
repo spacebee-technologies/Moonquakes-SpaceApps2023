@@ -1,3 +1,7 @@
+# Make a Moonquake Map 2.0!
+The Apollo Lunar Surface Experiment Package (ALSEP) was a set of geophysical instruments designed to monitor the lunar environment after astronauts left each Apollo landing site, with an intended lifespan of one year (two for Apollo 17). Surprisingly, these instruments continued to function for up to 8 years until Mission Control shut them down on September 30, 1977. The first Apollo mission, Apollo 11, had a simpler version called the Early Apollo Surface Experiments Package (EASEP), featuring only two experiments.
+
+During the journey from Earth, the ALSEP/EASEP packages were stowed in the Scientific Equipment Bay (SEQ Bay)/Quad II. Their height was adjusted for easy manual deployment on level terrain, with booms assisting off-loading, especially if the Lunar Module was tilted. Lanyards released the packages, allowing them to swing freely and then be lowered by pulley to the lunar surface. Apollo 15's LM tilt made hand off-loading feasible, and for Apollo 17, the pulleys were removed as the crew deemed them unnecessary. Mission timelines allotted 8 to 9 minutes for this coordinated off-loading process by both crew members.
 # Aónikenk Lunar Data Visualizer
 This repo contains:
 - A web app for scientific lunar data visualization (seismographic information, topographic and geological maps and more!)
