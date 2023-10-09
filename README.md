@@ -20,17 +20,15 @@ In addition, the application offers the following geographical views of the moon
 - Topographic
 - Geological
 - Temperature maps
-  
-![immagine](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/54816650/0ed97bbb-eed2-46e9-a99b-a6288b674c58)
+
+![273479380-0ed97bbb-eed2-46e9-a99b-a6288b674c5 width-1024](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/54816650/b9a72cde-c30d-4b44-8ee9-9f909aeffc02)
 
 Other features include:
 - An ambedded augmented reality app accessible by scanning the next image on a device that is running the web app.
-![WhatsApp Image 2023-10-08 at 22 35 17](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/70104934/a6253916-83e3-4e2d-b15b-f887a68ccb17)
+![WhatsApp_Image_2023-10-08_at_22 35 15 width-1024](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/54816650/862945f5-7ba6-476f-be23-46778592af62)
 
 - A WebGL Unity moon simulator
-![image](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/70104934/54bc57c3-a69e-4b97-a35d-431f4038e2c7)
-![image](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/70104934/73b792cb-6243-4aef-96d0-0911b45431e0)
-![image](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/70104934/f2f1f86a-62bf-4a07-b579-f8e66611252c)
-![image](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/70104934/9003e54c-9275-4aed-8834-37a3967406e5)
-![HIRO](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/70104934/8d4be661-4c33-4293-b996-da8cb0a65089)
-
+![273480334-9003e54c-9275-4aed-8834-37a3967406e width-1024_wvmexyK](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/54816650/e62c6a2a-07ef-4652-b676-3d8208b923ed)
+![273480059-f2f1f86a-62bf-4a07-b579-f8e66611252 width-1024](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/54816650/7e63fd4f-b276-4c08-90c5-d6d9b5eecc94)
+![273479959-54bc57c3-a69e-4b97-a35d-431f4038e2c width-1024](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/54816650/23aa905e-b8ec-4cfc-8763-fe0b311e3ea6)
+![273480026-73b792cb-6243-4aef-96d0-0911b45431e width-1024](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/54816650/e9aeae56-4cd1-4fbe-82ab-cd19135f3811)
