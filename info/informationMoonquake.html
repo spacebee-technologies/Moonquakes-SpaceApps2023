@@ -36,28 +36,29 @@
       var Texto = params.get('Texto');
       var image = params.get('image');
       var type= params.get('type');
-
+      console.log(type);
       switch (type) {
         case "Deep moonquake":
-          
+        image="plots/MoonquakeExample-ShallowMoonquake.png"
           break;
         case "Shallow moonquake":
-        
+        image="plots/MoonquakeExample-ShallowMoonquake.png"
         break;
         case  "Natural impact":
-        
+        image="plots/MoonquakeExample - Artificial.png"
         break;
-        case  "Natural impact":
-        
+        case  "Artificial impact":
+        image="plots/MoonquakeExample - Artificial.png"
         break;
         default:
+        image="plots/MoonquakeExample-ShallowMoonquake.png"
           break;
       }
 
       var miElemento = document.getElementById("title");
       miElemento.innerHTML = '<h1>'+ Titulo +'</h1>';
       var miElemento = document.getElementById("image");
-      miElemento.innerHTML = '<img src="resources/'+ image +'" width="300" height="200">';
+      miElemento.innerHTML = '<img src="/resources/'+ image +'" width="300" height="200">';
       var miElemento = document.getElementById("texto");
       miElemento.innerHTML = '<p>'+ Texto +'</p>';
       //console.log(Texto);
