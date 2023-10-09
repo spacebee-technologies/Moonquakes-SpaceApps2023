@@ -17,14 +17,70 @@
       border-radius: 20px;       /* roundness of the scroll thumb */
       border: 3px solid rgb(0, 0, 0);  /* creates padding around scroll thumb */
     }    
-    </style>
+    body{
+          color: white;
+          background: transparent;
+      }
+      body::-webkit-scrollbar {
+        width: 12px;               /* width of the entire scrollbar */
+      }
+      
+      body::-webkit-scrollbar-track {
+        background: rgb(0, 0, 0);        /* color of the tracking area */
+      }
+      
+      body::-webkit-scrollbar-thumb {
+        background-color: rgb(255, 255, 255);    /* color of the scroll thumb */
+        border-radius: 20px;       /* roundness of the scroll thumb */
+        border: 3px solid rgb(0, 0, 0);  /* creates padding around scroll thumb */
+      } 
+      
+      button {
+      padding: 2px;
+      margin: 10px;
+      cursor: pointer;
+    }
 
+    /* Estilos adicionales para los botones */
+    .empezar {
+      color: green;
+    }
+
+    .parar {
+      color: red;
+    }
+    </style>
+<script>
+  function empezarAudio() {
+     var textContainer = document.getElementById("text");
+     console.log(textContainer);
+     var text=textContainer.textContent;
+    // Crear un nuevo objeto SpeechSynthesisUtterance con el texto deseado
+    utterance = new SpeechSynthesisUtterance(text);
+
+    // Configurar otras opciones si es necesario (idioma, velocidad, voz, etc.)
+    utterance.lang = 'en';
+    utterance.rate = 0.8;
+    utterance.onerror = function(event) {
+        console.error('Error al hablar:', event);
+    };
+    // Iniciar la síntesis de voz
+    window.speechSynthesis.speak(utterance);
+  }
+  
+  function pararAudio() {
+    // Detener la síntesis de voz
+    window.speechSynthesis.cancel();
+  }
+    </script>
 <html>
 <head>
 </head>
 <body>
+  <button class="empezar" onclick="empezarAudio()"><i class="fas fa-play"></i> Start Audio</button>
+  <button class="parar" onclick="pararAudio()"><i class="fas fa-stop"></i> Stop Audio</button>
     <h1>Map of Minimum Temperature</h1>
-    <p>
+    <p id="text">
         This map displays the  maximum surface temperatures on the Moon, which vary significantly across its surface. These variations are influenced by factors such as albedo (reflectivity), orbital positioning, and celestial geometry.
 
         At noon, when the Sun is directly overhead, peak temperatures are observed. These peak temperatures are determined by the albedo of the surface and other environmental factors. Conversely, the lowest temperatures occur just before local sunrise and are closely tied to the near-surface thermophysical properties.

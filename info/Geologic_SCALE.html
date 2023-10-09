@@ -1,5 +1,60 @@
-<style>
-  body{
+<script>
+   function empezarAudio() {
+      var textContainer = document.getElementById("text");
+      console.log(textContainer);
+      var text=textContainer.textContent;
+     // Crear un nuevo objeto SpeechSynthesisUtterance con el texto deseado
+     utterance = new SpeechSynthesisUtterance(text);
+
+     // Configurar otras opciones si es necesario (idioma, velocidad, voz, etc.)
+     utterance.lang = 'en';
+     utterance.rate = 0.8;
+     utterance.onerror = function(event) {
+         console.error('Error al hablar:', event);
+     };
+     // Iniciar la síntesis de voz
+     window.speechSynthesis.speak(utterance);
+   }
+   
+   function pararAudio() {
+     // Detener la síntesis de voz
+     window.speechSynthesis.cancel();
+   }
+     </script>
+   <style>
+     body{
+         color: white;
+         background: transparent;
+     }
+     body::-webkit-scrollbar {
+       width: 12px;               /* width of the entire scrollbar */
+     }
+     
+     body::-webkit-scrollbar-track {
+       background: rgb(0, 0, 0);        /* color of the tracking area */
+     }
+     
+     body::-webkit-scrollbar-thumb {
+       background-color: rgb(255, 255, 255);    /* color of the scroll thumb */
+       border-radius: 20px;       /* roundness of the scroll thumb */
+       border: 3px solid rgb(0, 0, 0);  /* creates padding around scroll thumb */
+     } 
+     
+     button {
+     padding: 2px;
+     margin: 10px;
+     cursor: pointer;
+   }
+
+   /* Estilos adicionales para los botones */
+   .empezar {
+     color: green;
+   }
+
+   .parar {
+     color: red;
+   }
+   body{
       color: white;
       background: transparent;
   }
@@ -16,16 +71,19 @@
     border-radius: 20px;       /* roundness of the scroll thumb */
     border: 3px solid rgb(0, 0, 0);  /* creates padding around scroll thumb */
   }    
-  </style>
+ </style>
+
 
 <!DOCTYPE html>
 <html>
    <head>
    </head>
+   <button class="empezar" onclick="empezarAudio()"><i class="fas fa-play"></i> Start Audio</button>
+   <button class="parar" onclick="pararAudio()"><i class="fas fa-stop"></i> Stop Audio</button>
    <body>
       <div>
-        <h1>Gelogical Map</h1>
-        <p>
+        <h1 id="title">Gelogical Map</h1>
+        <p id="text">
          Globally consistent 1:5,000,000-scale geologic map of the moon, seamlessly derived
          from six digitally renovated geologic maps. This type of information supports
          scientific research, and future geologic mapping endeavors at various scales
