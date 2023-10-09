@@ -25,9 +25,9 @@ In addition, the application offers the following geographical views of the moon
 
 Other features include:
 - An ambedded augmented reality app accessible by scanning the next image on a device that is running the web app.
+![WhatsApp Image 2023-10-08 at 22 35 17](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/70104934/a6253916-83e3-4e2d-b15b-f887a68ccb17)
 
 - A WebGL Unity moon simulator
- 
 ![image](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/70104934/54bc57c3-a69e-4b97-a35d-431f4038e2c7)
 ![image](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/70104934/73b792cb-6243-4aef-96d0-0911b45431e0)
 ![image](https://github.com/spacebee-technologies/Moonquakes-SpaceApps2023/assets/70104934/f2f1f86a-62bf-4a07-b579-f8e66611252c)
